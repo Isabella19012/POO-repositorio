@@ -1,8 +1,11 @@
-mes = 'Janeiro'
+mes = 'none'
 trimestre = 'primeiro'
 Nmes = int(input('Informe o número do mês: '))
 if Nmes > 0 and Nmes <= 12:
-    if Nmes == 2:
+    if Nmes == 1:
+        mes = 'Janeiro'
+        trimestre = 'primeiro'
+    elif Nmes == 2:
         mes = 'fevereiro'
     elif Nmes == 3:
         mes = 'março'
@@ -33,6 +36,7 @@ if Nmes > 0 and Nmes <= 12:
     elif Nmes == 12:
         mes = 'dezembro'
         trimestre = 'quarto'
-    else: print('Não existe esse mês.')
 
-print(f'O mês de {mes} é do {trimestre} trimestre do ano')
+    print(f'O mês de {mes} é do {trimestre} trimestre do ano')
+else: 
+    print('Esse mês não existe')
