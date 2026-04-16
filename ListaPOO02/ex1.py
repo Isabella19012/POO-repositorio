@@ -66,8 +66,33 @@ class conta_bancaria:
             self.__saldo += depositar
         return self.__saldo
 
-class ingresso:
-    pass
+class ingresso():
+    def __init__(self):
+        self.__dia = 0
+        self.__hora = 0
+    def set_hora(self,h):
+        if h>=0: self.__hora = h
+        else: raise ValueError()        
+    def set_dia(self,d):
+        if d>=0: self.__dia = d
+        else: raise ValueError()
+    def get_dia(self):
+        return self.__dia
+    def get_hora(self):
+        return self.__hora
+    def dia_semana(self):
+        if 0<self.__dia<=7:
+            if self.__dia in [2, 3, 5]:
+                valorc=16
+            elif self.__dia == 4:
+                valorc=8
+                return float(valorc)
+            elif self.__dia in [6, 7, 1]:
+                valorc=20
+            if 17 <= self.__hora <= 24:
+                valorc = valorc+(valorc/2)
+            return float(valorc)
+        else: return "Esse dia não existe"
 
 
 # Interface com usuário (User Interface) - prints, inputs
@@ -128,4 +153,11 @@ class UI:
             depositar=0
         print(f'Titular: {nome} | número da conta: {numero_conta}')
         print(f'Seu saldo é de: {cb.calc_saldo(pergunta, sacar, depositar)}')
+    @staticmethod
+    def ingresso():
+        c=ingresso()
+        print('Domingo(1), Segunda(2), Terça(3), Quarta(4), Quinta(5), Sexta(6), Sábado(7).')
+        c.set_dia=(int(input('Informe o dia que irá para o cinema em número: ')))
+        c.set_hora=(int(input("Horário que irá: ")))
+        print(f'Valor do ingresso: {c.dia_semana()}')
 UI.main()
