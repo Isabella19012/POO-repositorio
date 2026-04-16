@@ -1,4 +1,5 @@
 # Entidade
+import math
 class Triangulo:
     def __init__(self):
         self.__b = 0.0
@@ -25,75 +26,106 @@ class Circulo:
     def  get_raio(self):
         return self.__raio
     def calculo_area(self):
-        return 3.14*self.__raio**2
+        return math.pi*self.__raio**2
     def calc_circunferencia(self):
-        return 2*3.14*self.__raio
+        return 2*math.pi*self.__raio
 
 
 class Viagem:
     def __init__(self):
-        self.__distancia_K=0
-        self.__tempo_H=0
-    def get_distancia_K(self):
-        return self.__distancia_K
-    def get_tempo_H(self):
-        return self.__tempo_H
-    def set_distancia_K(self,k):
-        if k>=0: self.__distancia_K = k
-        else: raise ValueError()
-    def set_tempo_H(self,k):
-        if k>=0: self.__tempo_H = k
-        else: raise ValueError()
+        self.__distancia = 0.0
+        self.__horas = 0
+        self.__minutos = 0
+    def set_distancia(self, d):
+        if d >= 0:
+            self.__distancia = d
+        else:
+            raise ValueError()
+    def set_horas(self, h):
+        if h >= 0:
+            self.__horas = h
+        else:
+            raise ValueError()
+    def set_minutos(self, m):
+        if 0 <= m < 60:
+            self.__minutos = m
+        else:
+            raise ValueError()
+    def get_distancia(self):
+        return self.__distancia
+    def get_horas(self):
+        return self.__horas
+    def get_minutos(self):
+        return self.__minutos
     def calc_velocidade(self):
-        return self.__distancia_K/self.__tempo_H
-    
+        tempo_total = self.__horas + (self.__minutos / 60)
+        if tempo_total == 0:
+            return "Tempo não pode ser zero"
+        return self.__distancia / tempo_total
+
 class conta_bancaria:
     def __init__(self):
         self.__saldo=0
-    def get_distancia_K(self):
+        self.__nome=''
+        self.__conta_numero=0
+    def set_nome(self, n):
+        self.__nome = n
+    def set_numero(self, num):
+        self.__conta_numero = num
+    def get_numero_conta(self):
+        return self.__conta_numero
+    def get_nome(self):
+        return self.__nome
+    def get_numero(self):
+        return self.__conta_numero
+    def get_saldo(self):
         return self.__saldo
     def set_saldo(self,s):
         if s>=0: self.__saldo = s
         else: raise ValueError('Saldo menor que zero.')
 
     def calc_saldo(self, pergunta, sacar, depositar):
-        if pergunta == 1:
+
+        if pergunta == 2: 
             if sacar <= self.__saldo:
                 self.__saldo -= sacar 
             else:
                 print("Saldo insuficiente")
-        elif pergunta == 2:
+        elif pergunta == 1:  
             self.__saldo += depositar
         return self.__saldo
+
 
 class ingresso():
     def __init__(self):
         self.__dia = 0
         self.__hora = 0
     def set_hora(self,h):
-        if h>=0: self.__hora = h
-        else: raise ValueError()        
+        if 0 <= h <= 24:
+            self.__hora = h
+        else: raise ValueError()     
     def set_dia(self,d):
-        if d>=0: self.__dia = d
+        if 1<=d<=7: self.__dia = d
         else: raise ValueError()
     def get_dia(self):
         return self.__dia
     def get_hora(self):
         return self.__hora
     def dia_semana(self):
-        if 0<self.__dia<=7:
-            if self.__dia in [2, 3, 5]:
-                valorc=16
-            elif self.__dia == 4:
-                valorc=8
-                return float(valorc)
-            elif self.__dia in [6, 7, 1]:
-                valorc=20
-            if 17 <= self.__hora <= 24:
-                valorc = valorc+(valorc/2)
-            return float(valorc)
-        else: return "Esse dia não existe"
+        if 0 < self.__dia <= 7:
 
+            # Definir valor base
+            if self.__dia in [2, 3, 5]:  # Segunda, terça, quinta
+                valorc = 16
+            elif self.__dia == 4:        # Quarta
+                return 8.0
+            elif self.__dia in [6, 7, 1]:  # Sexta, sábado, domingo
+                valorc = 20
+            if 17 <= self.__hora <= 24:
+                valorc += valorc * 0.5
+            return float(valorc)
+        else:
+            return "Esse dia não existe"
 
 # Interface com usuário (User Interface) - prints, inputs
 class UI:
@@ -121,7 +153,7 @@ class UI:
         x.set_base(float(input("Informe o valor da base: ")))     # método de instância
         x.set_altura(float(input("Informe o valor da altura: ")))
         area = x.calc_area()
-        print(f"Um triângulo com base {x.get_base} e altura {x.get_altura} tem área = {area}")
+        print(f"Um triângulo com base {x.get_base()} e altura {x.get_altura()} tem área = {area}")
 
     @staticmethod
     def circulo():
@@ -133,15 +165,16 @@ class UI:
     def Viagem():
         print('Velocidade média da viagem.')
         v=Viagem()
-        v.set_tempo_H(int(input('Digite o tempo em horas: ')))
-        v.set_distancia_K(float(input('Digite a distância em KM: ')))
+        v.set_horas(int(input('Digite o tempo em horas: ')))
+        v.set_minutos(int(input('Digite os minutos: ')))
+        v.set_distancia(float(input('Digite a distância em KM: ')))
         print(f'Velocidade média da viagem: {v.calc_velocidade()}')
     @staticmethod
     def conta_bancaria():
         print('Conta bancária.')
         cb=conta_bancaria()
-        nome=input('Digite o seu nome: ')
-        numero_conta=int(input('Digite o número da conta: '))
+        cb.set_nome(input('Digite o seu nome: '))
+        cb.set_numero(int(input('Digite o número da conta: ')))
         cb.set_saldo(float(input('Digite o seu saldo: ')))
         print('Depositar(1) Sacar(2)')
         pergunta=int(input('Deseja depositar ou sacar?:'))
@@ -151,13 +184,13 @@ class UI:
         elif pergunta ==2:
             sacar = float(input('Quanto deseja sacar?:'))
             depositar=0
-        print(f'Titular: {nome} | número da conta: {numero_conta}')
+        print(f'Titular: {cb.get_nome()} | número da conta: {cb.get_numero_conta()}')
         print(f'Seu saldo é de: {cb.calc_saldo(pergunta, sacar, depositar)}')
     @staticmethod
     def ingresso():
         c=ingresso()
         print('Domingo(1), Segunda(2), Terça(3), Quarta(4), Quinta(5), Sexta(6), Sábado(7).')
-        c.set_dia=(int(input('Informe o dia que irá para o cinema em número: ')))
-        c.set_hora=(int(input("Horário que irá: ")))
+        c.set_dia(int(input('Informe o dia que irá para o cinema em número: ')))
+        c.set_hora(int(input("Horário que irá: ")))
         print(f'Valor do ingresso: {c.dia_semana()}')
 UI.main()
