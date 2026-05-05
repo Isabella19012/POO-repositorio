@@ -40,7 +40,7 @@ class ContatoUI:
         id = int(input('Seu id: '))
         nome = input('Seu nome: ')
         email = input('Seu email: ')
-        telefone = input('Seu telefone: ')
+        telefone = input('Seu telefone: 2')
         x=Contato(id, nome, email, telefone)
         cls.contatos.append(x)
         print('Contato inserido com sucesso')
@@ -50,12 +50,12 @@ class ContatoUI:
         else:
             for x in cls.contatos: print(x)
     @classmethod
-    def atualizar(cls, nome, email, telefone):
+    def atualizar(cls):
         o = int(input('Você quer atualizar o quê? (1-id 2-nome 3-email 4-telefone 5-nada)'))
         while o != 6:
             if o == 1:
                 id=int(input('Digite seu novo id: '))
-                x=Contato(id, nome, email, telefone)
+                x=Contato(id)
                 cls.contatos.append(x)            
 
 ContatoUI.main()
