@@ -61,7 +61,6 @@ class ContatoUI:
             print('Nenhum contato')
             return
 
-        # mostra os contatos com índice
         for i, c in enumerate(cls.contatos):
             print(f'{i} -> {c}')
 
@@ -78,19 +77,15 @@ class ContatoUI:
         if o == 1:
             novo_id = int(input('Novo id: '))
             c.set_id(novo_id)
-
         elif o == 2:
             nome = input('Novo nome: ')
             c.set_nome(nome)
-
         elif o == 3:
             email = input('Novo email: ')
             c.set_email(email)
-
         elif o == 4:
             fone = input('Novo telefone: ')
             c.set_fone(fone)
-
         print('Atualizado com sucesso')
     @classmethod
     def excluir(cls):
@@ -112,6 +107,9 @@ class ContatoUI:
         print('Contato excluído com sucesso')
     @classmethod
     def pesquisar(cls):
+        if len(cls.contatos) == 0:
+            print('Nenhum contato')
+            return
         inicio = input('Digite as iniciais do nome: ').lower()
         achou = False
         for c in cls.contatos:
