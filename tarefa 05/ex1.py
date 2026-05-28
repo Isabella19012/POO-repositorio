@@ -44,7 +44,7 @@ class TreinoUI:
         id=int(input('Informe o ID: '))
         data=datetime.strptime(input('Informe a data: '),('%d/%m/%Y'))
         distancia=float(input('Informe a distância: '))
-        tempo = datetime.timedelta(minute=data)-distancia #como assim
+        tempo = (datetime.now() - data)//30
         t=Treino(id, data, distancia, tempo)
         cls.__treinam.append(t)
     @classmethod
