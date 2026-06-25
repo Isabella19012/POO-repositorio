@@ -29,12 +29,12 @@ class Contato:
     def get_nascimento(self): return self.__nascimento
 
     def __str__(self):
-        return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
+        return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone} - {self.__nascimento}"
     def to_json(self):
-        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email,  'fone': self.__fone}
+        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email,  'telefone': self.__fone, 'nascimento': self.__nascimento}
     @staticmethod
     def from_json(dic):
-        return Contato(dic['id'], dic['nome'], dic['email'], dic['fone'])
+        return Contato(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['nasc'])
 class ContatoUI:
     __contatos=[]
     @staticmethod
@@ -62,7 +62,8 @@ class ContatoUI:
         nome = input("Informe o nome: ")
         email = input("Informe o email: ")
         fone = input("Informe o telefone: ")
-        x = Contato(id, nome, email, fone)
+        nasc = datetime.strptime(input( 'Em formato dd/mm/yyyy: '), '%d/%m/%Y')
+        x = Contato(id, nome, email, fone, nasc)
         cls.__contatos.append(x)
 
     @classmethod
@@ -72,7 +73,7 @@ class ContatoUI:
     @classmethod
     def listar_id(cls):                
         for x in cls.__contatos: 
-            print(x.get_id)
+            print(x.get_id())
 
     @classmethod
     def atualizar(cls):
@@ -83,9 +84,11 @@ class ContatoUI:
                 nome = input("Informe o novo nome: ")
                 email = input("Informe o novo email: ")
                 fone = input("Informe o novo telefone: ")
+                nasc = datetime.strptime(input( 'Em formato dd/mm/yyyy: '), '%d/%m/%Y')
                 x.set_nome(nome)
                 x.set_email(email)
-                x.set_telefone(fone)
+                x.set_fone(fone)
+                x.set_nascimento(nasc)
                 ContatoUI.salvar()
 
     @classmethod
@@ -114,7 +117,9 @@ class ContatoUI:
     def aniversariantes(cls):
         for x in cls.__contatos:
             if x.get_nascimento().day == datetime.now().day and x.get_nascimento().month == datetime.now().month:
-                print(x, 'é aniversáriante')
+                print('Aniversáriantes:')
+                print(x)
+            else: print('Não tem aniveráriantes.')
     @classmethod
     def salvar(cls):    
         arquivo = open("contatos.json", mode = "w")
@@ -136,3 +141,4 @@ class ContatoUI:
 
 ContatoUI.main()
 ContatoUI.abrir()
+ContatoUI.salvar()
