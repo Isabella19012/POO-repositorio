@@ -1,6 +1,7 @@
 from models.cliente import Cliente
-from models.clientedao import ClienteDAO
+from models.clienteDAO import ClienteDAO
 class Service:
+    @staticmethod
     def cliente_inserir(id, nome, email, fone):
         obj = Cliente(id, nome, email, fone)
         ClienteDAO().inserir(obj)

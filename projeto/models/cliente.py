@@ -23,7 +23,7 @@ class Cliente:
     def get_nome(self) : return self.__nome
     def get_email(self) : return self.__email
     def get_fone(self) : return self.__fone
-    def to_jso(self):
+    def to_json(self):
         return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'fone':self.__fone}
     @staticmethod
     def from_json(dic):

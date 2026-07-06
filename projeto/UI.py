@@ -12,7 +12,7 @@ class UI:
     @staticmethod
     def menu():
         print("1-Inserir, 2-Listar, 3-Atualizar, 4-Excluir, 9-Fim")
-        return int(input('Informe uma opção'))
+        return int(input('Informe uma opção: '))
     @staticmethod
     def inserir():
         id = int(input("Informe o id: "))
