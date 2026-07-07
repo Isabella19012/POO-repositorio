@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "descricao": "oi",
+    "valor": 12.0
+  },
+  {
+    "id": 2,
+    "descricao": "gata",
+    "valor": 1000.0
+  },
+  {
+    "id": 3,
+    "descricao": "tre",
+    "valor": 30.0
+  }
+]
