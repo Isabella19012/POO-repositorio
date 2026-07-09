@@ -1,4 +1,4 @@
-from models.Cliente import Cliente
+from models.cliente import Cliente
 import json
 class ClienteDAO:
     def __init__(self):
@@ -6,15 +6,6 @@ class ClienteDAO:
         self.__objetos = []
         self.__abrir()
     def inserir(self, obj):
-        if len(self.__objetos) == 0:
-            obj.set_id(1)
-        else:
-            maior = 0
-            for cliente in self.__objetos:
-                if cliente.get_id() > maior:
-                    maior = cliente.get_id()
-            obj.set_id(maior + 1)
-
         self.__objetos.append(obj)
         self.__salvar()
     def listar(self):
@@ -34,12 +25,6 @@ class ClienteDAO:
         if aux != None:
             self.__objetos.remove(aux)
             self.__salvar()
-    def listar_nome(self, nome):
-        lista = []
-        for cliente in self.__objetos:
-            if cliente.get_nome().lower().startswith(nome.lower()):
-                lista.append(cliente)
-        return lista
     def __abrir(self):
         try:
             arquivo = open(self.__arquivo, mode='r')
