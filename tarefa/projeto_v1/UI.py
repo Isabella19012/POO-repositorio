@@ -1,4 +1,4 @@
-from Service import Service
+from tarefa.projeto_v1.Service import Service
 class UI:
     @staticmethod
     def main():

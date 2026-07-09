@@ -1,5 +1,5 @@
-from models.cliente import Cliente
-from models.clienteDAO import ClienteDAO
+from tarefa.projeto_v1.models.cliente import Cliente
+from tarefa.projeto_v1.models.clienteDAO import ClienteDAO
 class Service:
     @staticmethod
     def cliente_inserir(id, nome, email, fone):

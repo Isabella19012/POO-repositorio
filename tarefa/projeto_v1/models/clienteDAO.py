@@ -1,4 +1,4 @@
-from models.cliente import Cliente
+from tarefa.projeto_v1.models.cliente import Cliente
 import json
 class ClienteDAO:
     def __init__(self):
