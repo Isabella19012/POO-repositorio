@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "descricao": "POO aula",
+    "valor": 8.0
+  },
+  {
+    "id": 2,
+    "descricao": "oisa",
+    "valor": 12.0
+  }
+]
