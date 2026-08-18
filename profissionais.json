@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": 1,
+    "nome": "Oracio",
+    "email": "ornando@.com",
+    "especializacao": "medicpo",
+    "senha": "oioioi"
+  }
+]

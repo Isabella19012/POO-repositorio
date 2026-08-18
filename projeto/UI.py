@@ -1,4 +1,5 @@
 from Service import Service
+from datetime import datetime
 class UI:
     @staticmethod
     def main():
@@ -63,7 +64,8 @@ class UI:
         email = input("Informe o e-mail: ")
         fone = input("Informe o telefone: ")
         senha = input('Informe a senha: ')
-        Service.cliente_inserir(nome, email, fone, senha)
+        nascimento = datetime.strptime(input('Digite o seu aniversário no modelo “dd/mm/yyyy”: '), '%d%m%Y')
+        Service.cliente_inserir(nome, email, fone, senha, nascimento)
     @staticmethod
     def listar_cliente():
         for obj in Service.cliente_listar(): print(obj)
@@ -85,7 +87,9 @@ class UI:
         email = input("Informe o novo e-mail: ")
         fone = input("Informe o novo telefone: ")
         senha = input('Informe a nova senha: ')
-        Service.cliente_atualizar(id, nome, email, fone, senha)
+        nascimento = datetime.strptime(input('Digite o seu aniversário no modelo “dd/mm/yyyy”: '), '%d%m%Y')
+
+        Service.cliente_atualizar(id, nome, email, fone, senha, nascimento)
     @staticmethod
     def excluir_cliente():
         for obj in Service.cliente_listar(): print(obj)
