@@ -1,6 +1,6 @@
 from datetime import datetime
 class Cliente:
-    def __init__(self, id, nome, email, fone, senha, aniversario):
+    def __init__(self, id, nome, email, fone, senha, nascimento):
         self.set_id(id)
         self.set_nome(nome)
         self.set_email(email)
@@ -26,16 +26,17 @@ class Cliente:
         if senha == '': raise ValueError('Senha não pode ser vazia')
         self.__senha=senha
     def set_nascimento(self, nasc):
-	    if nasc > datetime.now(): raise ValueError('Deve estar no passado')
-        self.__nascimento = nasc
+            if nasc > datetime.now(): raise ValueError('Deve estar no passado')
+            self.__nascimento = nasc
 
     def get_id(self) : return self.__id
     def get_nome(self) : return self.__nome
     def get_email(self) : return self.__email
     def get_fone(self) : return self.__fone
     def get_senha(self): return self.__senha
+    def get_senha(self): return self.__nascimento
     def to_json(self):
-        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'fone': self.__fone, 'senha': self.__senha}
+        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'fone': self.__fone, 'senha': self.__senha, 'nascimento': self.__nascimento}
     @staticmethod
     def from_json(dic):
-        return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'])
+        return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'], dic['nascimento'])
