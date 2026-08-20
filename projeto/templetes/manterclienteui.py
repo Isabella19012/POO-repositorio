@@ -1,6 +1,6 @@
 import streamlit as st 
 import pandas as pd #
-import time #
+import time 
 from Service import Service 
 
 class ManterClienteUI:

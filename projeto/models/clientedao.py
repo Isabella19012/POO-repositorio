@@ -1,4 +1,4 @@
-from models.Cliente import Cliente
+from models.cliente import Cliente
 import json
 class ClienteDAO:
     def __init__(self):
