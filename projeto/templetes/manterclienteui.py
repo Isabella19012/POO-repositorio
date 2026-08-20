@@ -1,0 +1,55 @@
+import streamlit as st 
+import pandas as pd #
+import time #
+from Service import Service 
+
+class ManterClienteUI:
+    def main():
+        st.header("Cadastro de Clientes")#tabs coloca abas na pagina
+        tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir",
+        "Atualizar", "Excluir"])
+        with tab1: ManterClienteUI.listar()
+        with tab2: ManterClienteUI.inserir()
+        with tab3: ManterClienteUI.atualizar()
+        with tab4: ManterClienteUI.excluir()
+    def listar():
+        clientes = Service.cliente_listar()
+        if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
+        else:
+            list_dic = []
+            for obj in clientes: list_dic.append(obj.to_json())
+            df = pd.DataFrame(list_dic)
+            st.dataframe(df)
+    def inserir():
+        nome = st.text_input('Informe o nome')
+        email = st.text_input('Informe o email')
+        fone = st.text_input('Infome o telefone')
+        if st.button('Inserir'):
+            Service.cliente_inserir(nome, email, fone)
+            st.sucess('Cliente inserido com sucesso!')
+            time.sleep(2)
+            st.rerun() #roda o programa denovo - recarregar
+
+    def atualizar():
+        cliente = Service.cliente_listar()
+        if len(cliente) == 0: st.write('Nemhum cliente cadastrado')
+        else:
+            op = st.selectbox('Atualização de cliente')
+            nome= st.text_input("Novo nome", op.get_nome())
+            email= st.text_input("Novo e-mail", op.get_email())
+            fone = st.text_input("Novo telefone", op.get_fone())
+        if st.button("Atualizar"):
+            id= op.get_id()
+            Service.cliente_atualizar(id, nome, email, fone)
+            st.success("Cliente atualizado com sucesso")
+            st.rerun()
+    def excluir():
+        clientes = Service.cliente_listar()
+        if len(clientes) == 0: st.write('Nenhum cliente cadastrado')
+        else:
+            op = st.selectbox('Exclusão de clientes', clientes)
+            if st.button('Excluir'):
+                id = op.get_id()
+                Service.cliente_excluir(id)
+                st.success('Cliente excluido com sucesso!')
+ManterClienteUI.main()

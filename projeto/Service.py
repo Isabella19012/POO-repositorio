@@ -1,8 +1,8 @@
 
 from models.Servico import Servico
 from models.ServicoDAO import ServicoDAO
-from models.Cliente import Cliente
-from models.ClienteDAO import ClienteDAO
+from models.cliente import Cliente
+from models.clientedao import ClienteDAO
 from models.Profissional import Profissional
 from models.ProfissionalDAO import ProfissionalDAO
 class Service:
