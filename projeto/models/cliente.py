@@ -1,4 +1,5 @@
 from datetime import datetime
+import streamlit as st
 class Cliente:
     def __init__(self, id, nome, email, fone, senha, nascimento):
         self.set_id(id)
