@@ -52,4 +52,4 @@ class ManterServicoUI:
                 id = op.get_id()
                 Service.servico_excluir(id)
                 st.success('Serviço excluido com sucesso!')
-ManterClienteUI.main()
+ManterServicoUI.main()
