@@ -25,7 +25,7 @@ class ManterServicoUI:
         descricao = st.text_input('Informe a descrição')
         valor = st.text_input('Infome o valor')
         if st.button('Inserir'):
-            Service.servico_inserir(id, descricao, float(valor))
+            Service.servico_inserir(int(id), descricao, float(valor))
             st.sucess('Serviço inserido com sucesso!')
             time.sleep(2)
             st.rerun() #roda o programa denovo - recarregar
@@ -34,13 +34,13 @@ class ManterServicoUI:
         servico = Service.servico_listar()
         if len(servico) == 0: st.write('Nemhum serviço cadastrado')
         else:
-            op = st.selectbox('Atualização de serviço')
+            op = st.selectbox('Atualização de serviço', servico)
             id= st.text_input("Novo ID", op.get_id())
-            descricao= st.text_input("Nova descrição", op.get_email())
-            valor = st.text_input("Novo valor", op.get_fone())
+            descricao= st.text_input("Nova descrição", op.get_descricao())
+            valor = st.text_input("Novo valor", op.get_valor())
         if st.button("Atualizar"):
-            id= op.get_id()
-            Service.servico_atualizar(id, descricao, float(valor))
+            id = op.get_id()
+            Service.servico_atualizar(int(id), descricao, float(valor))
             st.success("Serviço atualizado com sucesso")
             st.rerun()
     def excluir():
