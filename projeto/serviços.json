@@ -3,5 +3,20 @@
     "id": 1,
     "descricao": "nao tem id poris \u00e9 automatico",
     "valor": 12.0
+  },
+  {
+    "id": 2,
+    "descricao": "esquerda ",
+    "valor": 13.0
+  },
+  {
+    "id": 3,
+    "descricao": "direita",
+    "valor": 22.0
+  },
+  {
+    "id": 4,
+    "descricao": "saber",
+    "valor": 292.0
   }
 ]

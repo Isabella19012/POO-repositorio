@@ -5,6 +5,8 @@ from models.cliente import Cliente
 from models.clientedao import ClienteDAO
 from models.Profissional import Profissional
 from models.ProfissionalDAO import ProfissionalDAO
+from models.horario import Horario
+from models.horariodao import horarioDAO
 class Service:
     # Serviços
     @staticmethod
@@ -69,3 +71,27 @@ class Service:
     @staticmethod
     def profissional_excluir(id):
         ProfissionalDAO().excluir(id)
+    @staticmethod
+    def horario_inserir(data, confirmado, id_cliente, id_servico):
+        c= Horario(0, data)
+        c.set_confirmado=(confirmado)
+        c.set_id_cliente(id_cliente)
+        c.set_id_servico(id_servico)
+        horarioDAO().inserir(c) 
+    @staticmethod
+    def listar():
+        return horarioDAO().listar()
+    @staticmethod
+    def listar():
+        return horarioDAO().listar_id()
+    @staticmethod
+    def horario_atualizar(id, data, confirmado, id_cliente, id_servico):
+        c= Horario(id, data)
+        c.set_confirmado=(confirmado)
+        c.set_id_cliente(id_cliente)
+        c.set_id_servico(id_servico)
+        horarioDAO().atualizar(c)
+    @staticmethod
+    def horario_excluir(id):
+        horarioDAO().excluir(id)
+    
