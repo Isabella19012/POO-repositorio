@@ -18,43 +18,62 @@ class ManterHorarioUI:
         if len(horario) == 0: st.write("Nenhum horario cadastrado")
         else:
             dic = []
-            cliente = Service.cliente_listar_id(obj.get_id_cliente())
-            servico = Service.servico_listar_id(obj.get_id_servico())
-            if cliente != None: cliente = cliente.get_nome()
-            if cliente != None: servico = servico.get_descricao()
-            dic.append({'id':get_id(), 'data': obj.get_data(),
-                        'confirmado': obj.get_confirmado(), 'cliente': cliente,
-                        'serviço': servico})
+            for obj in horario:
+                cliente = Service.cliente_listar_id(obj.get_id_cliente())
+                servico = Service.servico_listar_id(obj.get_id_servico())
+                if cliente != None: cliente = cliente.get_nome()
+                if cliente != None: servico = servico.get_descricao()
+                dic.append({'id':obj.get_id(), 'data': obj.get_data(),
+                            'confirmado': obj.get_confirmado(), 'cliente': cliente,
+                            'serviço': servico})
             df = pd.DataFrame(dic)
             st.dataframe(df)
+
     def inserir():
-        #id = st.text_input('Informe o ID')
-        descricao = st.text_input('Informe a descrição')
-        valor = st.text_input('Infome o valor')
-        if st.button('Inserir'):
-            Service.horario_inserir( descricao, float(valor))
-            st.success('Serviço inserido com sucesso!')
+        clientes = Service.cliente_listar()
+        servicos = Service.servico_listar()
+        data = st.text_input("Informe a data e horário do serviço", datetime.now().strftime("%d/%m/%Y %H:%M"))
+        confirmado = st.checkbox("Confirmado")
+        cliente = st.selectbox("Informe o cliente", clientes, index = None)
+        servico = st.selectbox("Informe o serviço", servicos, index = None)
+        if st.button("Inserir"):
+            id_cliente = None
+            id_servico = None
+            if cliente != None: id_cliente = cliente.get_id()
+            if servico != None: id_servico = servico.get_id()
+            Service.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico)
+            st.success("Horário inserido com sucesso")
             time.sleep(2)
-            st.rerun() #roda o programa denovo - recarregar
+            st.rerun()
 
     def atualizar():
-        horario = Service.horario_listar()
-        if len(horario) == 0: st.write('Nemhum horario cadastrado')
+        horarios = Service.horario_listar()
+        if len(horarios) == 0: st.write("Nenhum horário cadastrado")
         else:
-            op = st.selectbox('Atualização de serviço', horario)
-            descricao= st.text_input("Nova descrição", op.get_descricao())
-            valor = st.text_input("Novo valor", op.get_valor())
+            clientes = Service.cliente_listar()
+            servicos = Service.servico_listar()
+            op = st.selectbox("Atualização de Horários", horarios)
+            data = st.text_input("Informe a nova data e horário do serviço", op.get_data().strftime("%d/%m/%Y %H:%M"))
+            confirmado = st.checkbox("Nova confirmação", op.get_confirmado())
+            id_cliente = None if op.get_id_cliente() in [0, None] else op.get_id_cliente()
+            id_servico = None if op.get_id_servico() in [0, None] else op.get_id_servico()
+            cliente = st.selectbox("Informe o novo cliente", clientes, next((i for i, c in enumerate(clientes) if c.get_id() == id_cliente), None))
+            servico = st.selectbox("Informe o novo serviço", servicos, next((i for i, s in enumerate(servicos) if s.get_id() == id_servico), None))
             if st.button("Atualizar"):
-                id = op.get_id()
-                Service.horario_atualizar(int(id), descricao, float(valor))
-                st.success("Horario atualizado com sucesso")
+                id_cliente = None
+                id_servico = None
+                if cliente != None: id_cliente = cliente.get_id()
+                if servico != None: id_servico = servico.get_id()
+                Service.horario_atualizar(op.get_id(), datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico)
+                st.success("Horário atualizado com sucesso")
                 st.rerun()
     def excluir():
-        horario = Service.horario_listar()
-        if len(horario) == 0: st.write('Nenhum horario cadastrado')
+        horarios = Service.horario_listar()
+        if len(horarios) == 0: st.write("Nenhum horário cadastrado")
         else:
-            op = st.selectbox('Exclusão de horario', horario)
-            if st.button('Excluir'):
-                id = op.get_id()
-                Service.horario_excluir(id)
-                st.success('Horario excluido com sucesso!')
+            op = st.selectbox("Exclusão de Horários", horarios)
+            if st.button("Excluir"):
+                Service.horario_excluir(op.get_id())
+                st.success("Horário excluído com sucesso")
+                time.sleep(2)
+                st.rerun()

@@ -79,10 +79,10 @@ class Service:
         c.set_id_servico(id_servico)
         horarioDAO().inserir(c) 
     @staticmethod
-    def listar():
+    def horario_listar():
         return horarioDAO().listar()
     @staticmethod
-    def listar():
+    def horario_listar_id():
         return horarioDAO().listar_id()
     @staticmethod
     def horario_atualizar(id, data, confirmado, id_cliente, id_servico):
