@@ -27,15 +27,15 @@ class Cliente:
         if senha == '': raise ValueError('Senha não pode ser vazia')
         self.__senha=senha
     def set_nascimento(self, nasc):
-            if nasc > datetime.now(): raise ValueError('Deve estar no passado')
-            self.__nascimento = nasc
+        if nasc > datetime.now(): raise ValueError('Deve estar no passado')
+        self.__nascimento = nasc
 
     def get_id(self) : return self.__id
     def get_nome(self) : return self.__nome
     def get_email(self) : return self.__email
     def get_fone(self) : return self.__fone
     def get_senha(self): return self.__senha
-    def get_senha(self): return self.__nascimento
+    def get_nascimento(self): return self.__nascimento
     def to_json(self):
         return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'fone': self.__fone, 'senha': self.__senha, 'nascimento': self.__nascimento}
     @staticmethod
