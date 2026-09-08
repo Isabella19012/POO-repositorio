@@ -53,6 +53,8 @@
 #                 Service.cliente_excluir(id)
 #                 st.success('Cliente excluido com sucesso!')
 # ManterClienteUI.main()
+import sys
+import os
 
 import streamlit as st
 import pandas as pd

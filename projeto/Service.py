@@ -7,8 +7,10 @@ from models.Profissional import Profissional
 from models.ProfissionalDAO import ProfissionalDAO
 from models.horario import Horario
 from models.horariodao import horarioDAO
+from models.Atendimento import Atendimento
+from models.AtendimentoDAO import AtendimentoDAO
 class Service:
-    # Serviços
+# SERVIÇOS
     @staticmethod
     def servico_inserir(descricao, valor):
         obj = Servico(0, descricao, valor)
@@ -29,7 +31,7 @@ class Service:
     @staticmethod
     def servico_excluir(id):
         ServicoDAO().excluir(id)
-    # Clientes
+# CLIENTES
     @staticmethod
     def cliente_inserir(nome, email, fone, senha, nascimento):
         obj = Cliente(0, nome, email, fone, senha, nascimento)
@@ -52,6 +54,7 @@ class Service:
     def cliente_excluir(id):
         ClienteDAO().excluir(id)
     @staticmethod
+#PROFISSIONAL
     def profissional_inserir(nome, email, especializacao, senha):
         obj=Profissional(0, nome, email, especializacao, senha)
         ProfissionalDAO().inserir(obj)
@@ -72,6 +75,7 @@ class Service:
     def profissional_excluir(id):
         ProfissionalDAO().excluir(id)
     @staticmethod
+#HORARIO
     def horario_inserir(data, confirmado, id_cliente, id_servico):
         c= Horario(0, data)
         c.set_confirmado=(confirmado)
@@ -94,4 +98,18 @@ class Service:
     @staticmethod
     def horario_excluir(id):
         horarioDAO().excluir(id)
-    
+#ATENDIMENTO
+    @staticmethod
+    def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
+        obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
+        AtendimentoDAO().inserir(obj)
+    @staticmethod
+    def atendimento_listar():
+        return AtendimentoDAO().listar()
+    @staticmethod
+    def atendimento_atualizar(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
+        obj = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
+        AtendimentoDAO().atualizar(obj)
+    @staticmethod
+    def atendimento_excluir(id):
+        AtendimentoDAO().excluir(id)
