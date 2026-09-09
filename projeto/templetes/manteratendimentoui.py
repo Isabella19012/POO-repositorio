@@ -1,5 +1,6 @@
 import sys
 import os
+from datetime import datetime
 
 # Adiciona a pasta raiz do projeto ('projeto') ao caminho de busca do Python
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -8,7 +9,7 @@ import pandas as pd
 import time
 from Service import Service
 
-class  ManterAtendimentoUI:
+class ManterAtendimentoUI:
     def main():
         st.header("Cadastro de Atendimento")
         tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Atualizar", "Excluir"])
@@ -25,14 +26,14 @@ class  ManterAtendimentoUI:
             df = pd.DataFrame(list_dic)
             st.dataframe(df)
     def inserir():
-        data = st.text_input("Informe a data")
+        data = st.text_input("Informe a data", datetime.now().strftime("%d/%m/%Y"))
         queixa_principal = st.text_input("Informe a queixa principal")
         historico_saude = st.text_input("Informe o histórico de saúde: ")
         avaliacao = st.text_input("Informe a avaliação")
         prescricao = st.text_input('informe a prescrição')
         id_horario = st.text_input('Informe o id do horário')
         if st.button("Inserir"):
-            Service.atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
+            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y"), queixa_principal, historico_saude, avaliacao, prescricao, int(id_horario))
             st.success("Atendimento inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -64,4 +65,3 @@ class  ManterAtendimentoUI:
                 st.success("Atendimento excluído com sucesso")
                 time.sleep(2)
                 st.rerun()
-ManterAtendimentoUI.main()

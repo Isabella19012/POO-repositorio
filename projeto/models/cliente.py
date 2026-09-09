@@ -1,13 +1,13 @@
 from datetime import datetime
 # import streamlit as st
 class Cliente:
-    def __init__(self, id, nome, email, fone, senha, nascimento):
+    def __init__(self, id, nome, email, senha, fone):
         self.set_id(id)
         self.set_nome(nome)
         self.set_email(email)
         self.set_fone(fone)
         self.set_senha(senha)
-        self.set_nascimento(nascimento)
+        #self.set_nascimento(nascimento)
     def __str__(self):
         return f' {self.__id} - {self.__nome} - {self.__email} - {self.__fone} - {self.__senha}'
     def set_id(self, id):
@@ -37,7 +37,7 @@ class Cliente:
     def get_senha(self): return self.__senha
     def get_nascimento(self): return self.__nascimento
     def to_json(self):
-        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'fone': self.__fone, 'senha': self.__senha, 'nascimento': self.__nascimento}
+        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'senha': self.__senha, 'fone': self.__fone}
     @staticmethod
     def from_json(dic):
-        return Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'], dic['senha'], dic['nascimento'])
+        return Cliente(dic['id'], dic['nome'], dic['email'], dic['senha'], dic['fone'])

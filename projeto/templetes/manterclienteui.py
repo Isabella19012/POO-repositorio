@@ -80,7 +80,7 @@ class ManterClienteUI:
     def inserir():
         nome = st.text_input("Informe o nome")
         email = st.text_input("Informe o e-mail")
-        senha = st.text_input("Informe a senha: ")
+        senha = st.text_input("Informe a senha: ", type="password")
         fone = st.text_input("Informe o fone")
         if st.button("Inserir"):
             Service.cliente_inserir(nome, email, senha, fone)
@@ -98,7 +98,7 @@ class ManterClienteUI:
             fone = st.text_input("Novo fone", op.get_fone())
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.cliente_atualizar(id, nome, email,senha, fone)
+                Service.cliente_atualizar(id, nome, email, senha, fone)
                 st.success("Cliente atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()

@@ -8,7 +8,7 @@ from Service import Service
 
 class ManterProfissionalUI:
     def main():
-        st.header("Cadastro de Clientes")
+        st.header("Cadastro de Profissionais")
         tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Atualizar", "Excluir"])
         with tab1: ManterProfissionalUI.listar()
         with tab2: ManterProfissionalUI.inserir()
@@ -28,7 +28,7 @@ class ManterProfissionalUI:
         senha = st.text_input("Informe a senha: ")
         especialidade = st.text_input("Informe a especialidade")
         if st.button("Inserir"):
-            Service.profissional_inserir(nome, email, senha, especialidade)
+            Service.profissional_inserir(nome, email, especialidade, senha)
             st.success("Profissional inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -40,10 +40,10 @@ class ManterProfissionalUI:
             nome = st.text_input("Novo nome", op.get_nome())
             email = st.text_input("Novo e-mail", op.get_email())
             senha = st.text_input("Nova senha", op.get_senha())
-            especialidade = st.text_input("Nova especialidade", op.get_especialidade())
+            especialidade = st.text_input("Nova especialidade", op.get_especializacao())
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.profissional_atualizar(id, nome, email,senha, especialidade)
+                Service.profissional_atualizar(int(id), nome, email, especialidade, senha)
                 st.success("Profissional atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
@@ -54,7 +54,7 @@ class ManterProfissionalUI:
             op = st.selectbox("Exclusão de profissional", profissionais)
             if st.button("Excluir"):
                 id = op.get_id()
-                Service.cliente_excluir(id)
+                Service.profissional_excluir(id)
                 st.success("Profissional excluído com sucesso")
                 time.sleep(2)
                 st.rerun()

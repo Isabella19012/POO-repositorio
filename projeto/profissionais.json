@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "nome": "Martim",
+    "email": "tim123@gmail.com",
+    "especializacao": "aprender",
+    "senha": "M\u00e9dico"
+  }
+]

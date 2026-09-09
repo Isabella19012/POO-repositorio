@@ -33,8 +33,8 @@ class Service:
         ServicoDAO().excluir(id)
 # CLIENTES
     @staticmethod
-    def cliente_inserir(nome, email, fone, senha, nascimento):
-        obj = Cliente(0, nome, email, fone, senha, nascimento)
+    def cliente_inserir(nome, email, senha, fone):
+        obj = Cliente(0, nome, email, senha, fone)
         ClienteDAO().inserir(obj)
     @staticmethod
     def cliente_listar():
@@ -46,8 +46,8 @@ class Service:
     def cliente_listar_nome(nome):
         return ClienteDAO().listar_nome(nome)
     @staticmethod
-    def cliente_atualizar(id, nome, email, fone, senha, nascimento):
-        obj = Cliente(id, nome, email, fone, senha, nascimento)
+    def cliente_atualizar(id, nome, email, senha, fone):
+        obj = Cliente(id, nome, email, senha, fone)
         ClienteDAO().atualizar(obj)
 
     @staticmethod
@@ -76,11 +76,12 @@ class Service:
         ProfissionalDAO().excluir(id)
     @staticmethod
 #HORARIO
-    def horario_inserir(data, confirmado, id_cliente, id_servico):
+    def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):
         c= Horario(0, data)
         c.set_confirmado=(confirmado)
         c.set_id_cliente(id_cliente)
         c.set_id_servico(id_servico)
+        c.set_id_profissional
         horarioDAO().inserir(c) 
     @staticmethod
     def horario_listar():
@@ -89,7 +90,7 @@ class Service:
     def horario_listar_id():
         return horarioDAO().listar_id()
     @staticmethod
-    def horario_atualizar(id, data, confirmado, id_cliente, id_servico):
+    def horario_atualizar(id, data, confirmado, id_cliente, id_servico, id_profissional):
         c= Horario(id, data)
         c.set_confirmado=(confirmado)
         c.set_id_cliente(id_cliente)
