@@ -33,8 +33,8 @@ class Service:
         ServicoDAO().excluir(id)
 # CLIENTES
     @staticmethod
-    def cliente_inserir(nome, email, senha, fone):
-        obj = Cliente(0, nome, email, senha, fone)
+    def cliente_inserir(nome, email, fone, id_convenio):
+        obj = Cliente(0, nome, email, fone, id_convenio)
         ClienteDAO().inserir(obj)
     @staticmethod
     def cliente_listar():
@@ -46,8 +46,8 @@ class Service:
     def cliente_listar_nome(nome):
         return ClienteDAO().listar_nome(nome)
     @staticmethod
-    def cliente_atualizar(id, nome, email, senha, fone):
-        obj = Cliente(id, nome, email, senha, fone)
+    def cliente_atualizar(id, nome, email, fone, id_convenio):
+        obj = Cliente(id, nome, email, fone, id_convenio)
         ClienteDAO().atualizar(obj)
 
     @staticmethod
@@ -114,3 +114,18 @@ class Service:
     @staticmethod
     def atendimento_excluir(id):
         AtendimentoDAO().excluir(id)
+#CONVENIO
+    @staticmethod
+    def convenio_inserir(nome, contato, fone):
+        obj = Atendimento(0, nome, contato, fone)
+        AtendimentoDAO().inserir(obj)
+    @staticmethod
+    def atendimento_listar():
+        return AtendimentoDAO().listar()
+    @staticmethod
+    def convenio_atualizar(id, nome, contato, fone):
+        obj = Convenio(id, nome, contato, fone)
+        ConvenioDAO().atualizar(obj)
+    @staticmethod
+    def convenio_excluir(id):
+        ConvenioDAO().excluir(id)

@@ -5,5 +5,12 @@
     "email": "tim123@gmail.com",
     "especializacao": "aprender",
     "senha": "M\u00e9dico"
+  },
+  {
+    "id": 2,
+    "nome": "Alex",
+    "email": "alex@gmail.com",
+    "especializacao": "TI",
+    "senha": "12345"
   }
 ]

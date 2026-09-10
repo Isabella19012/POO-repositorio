@@ -4,13 +4,26 @@
     "nome": "Isabella",
     "email": "@isa.br",
     "senha": "senha",
-    "fone": "08789"
+    "fone": "08789",
+    "id_convenio": 3
+
   },
   {
     "id": 2,
     "nome": "Happy",
     "email": "mare123@at.dot",
     "senha": "pato",
-    "fone": "(84) 99990-3244"
+    "fone": "(84) 99990-3244",
+    "id_convenio": 3
+
+  },
+  {
+    "id": 3,
+    "nome": "Claudia",
+    "email": "claudinha@boleto.pago",
+    "senha": "silo",
+    "fone": "99881122",
+    "id_convenio": 3
+
   }
 ]

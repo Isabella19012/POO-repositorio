@@ -1,13 +1,10 @@
-from datetime import datetime
-# import streamlit as st
 class Cliente:
-    def __init__(self, id, nome, email, senha, fone):
+    def __init__(self, id, nome, email, fone, id_convenio):
         self.set_id(id)
         self.set_nome(nome)
         self.set_email(email)
         self.set_fone(fone)
-        self.set_senha(senha)
-        #self.set_nascimento(nascimento)
+        self.set_id_convenio(id_convenio)
     def __str__(self):
         return f' {self.__id} - {self.__nome} - {self.__email} - {self.__fone} - {self.__senha}'
     def set_id(self, id):
@@ -23,21 +20,19 @@ class Cliente:
     def set_fone(self, fone):
         if fone == "": raise ValueError("Fone deve ser informado")
         self.__fone = fone
-    def set_senha(self, senha):
-        if senha == '': raise ValueError('Senha não pode ser vazia')
-        self.__senha=senha
-    def set_nascimento(self, nasc):
-        if nasc > datetime.now(): raise ValueError('Deve estar no passado')
-        self.__nascimento = nasc
+    def set_id_convenio(self, id):
+        if id < 0: raise ValueError("Id deve ser positivo")
+        self.__id_convenio = id
+
+
 
     def get_id(self) : return self.__id
     def get_nome(self) : return self.__nome
     def get_email(self) : return self.__email
     def get_fone(self) : return self.__fone
-    def get_senha(self): return self.__senha
-    def get_nascimento(self): return self.__nascimento
+    def get_id_convenio(self): return self.__convenio
     def to_json(self):
-        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'senha': self.__senha, 'fone': self.__fone}
+        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'senha': self.__senha, 'fone': self.__fone, 'id_convenio': self.__id_convenio}
     @staticmethod
     def from_json(dic):
         return Cliente(dic['id'], dic['nome'], dic['email'], dic['senha'], dic['fone'])
