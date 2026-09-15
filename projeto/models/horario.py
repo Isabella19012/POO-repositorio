@@ -1,6 +1,6 @@
 from datetime import datetime
 class Horario:
-    def __init__(self, id, data):
+    def __init__(self, id, data, ):
         self.set_id(id)
         self.set_data(data)
         self.set_confirmado(False)

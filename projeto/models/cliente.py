@@ -1,12 +1,12 @@
 class Cliente:
-    def __init__(self, id, nome, email, fone, id_convenio):
+    def __init__(self, id, nome, email, fone):
         self.set_id(id)
         self.set_nome(nome)
         self.set_email(email)
         self.set_fone(fone)
-        self.set_id_convenio(id_convenio)
+        self.set_id_convenio(0)
     def __str__(self):
-        return f' {self.__id} - {self.__nome} - {self.__email} - {self.__fone} - {self.__senha}'
+        return f' {self.__id} - {self.__nome} - {self.__email} - {self.__fone} - {self.__id_convenio}'
     def set_id(self, id):
         if id < 0: raise ValueError("Id deve ser positivo")
         self.__id = id
@@ -32,7 +32,9 @@ class Cliente:
     def get_fone(self) : return self.__fone
     def get_id_convenio(self): return self.__convenio
     def to_json(self):
-        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email, 'senha': self.__senha, 'fone': self.__fone, 'id_convenio': self.__id_convenio}
+        return {'id': self.__id, 'nome': self.__nome, 'email': self.__email,'fone': self.__fone, 'id_convenio': self.__id_convenio}
     @staticmethod
     def from_json(dic):
-        return Cliente(dic['id'], dic['nome'], dic['email'], dic['senha'], dic['fone'])
+        Cliente=Cliente(dic['id'], dic['nome'], dic['email'], dic['fone'])
+        Cliente.set_id_convenio
+        return convenio

@@ -9,6 +9,8 @@ from models.horario import Horario
 from models.horariodao import horarioDAO
 from models.Atendimento import Atendimento
 from models.AtendimentoDAO import AtendimentoDAO
+from models.Convenio import Convenio
+from models.ConvenioDAO import ConvenioDAO
 class Service:
 # SERVIÇOS
     @staticmethod
@@ -33,9 +35,10 @@ class Service:
         ServicoDAO().excluir(id)
 # CLIENTES
     @staticmethod
-    def cliente_inserir(nome, email, fone, id_convenio):
-        obj = Cliente(0, nome, email, fone, id_convenio)
-        ClienteDAO().inserir(obj)
+    def cliente_inserir(id, nome, email, fone, id_convenio):
+        c=obj = Cliente(id, nome, email, fone, id_convenio)
+        c.set_confirmado=(id_convenio)
+        ClienteDAO().inserir(c)
     @staticmethod
     def cliente_listar():
         return ClienteDAO().listar()
@@ -117,11 +120,11 @@ class Service:
 #CONVENIO
     @staticmethod
     def convenio_inserir(nome, contato, fone):
-        obj = Atendimento(0, nome, contato, fone)
-        AtendimentoDAO().inserir(obj)
+        obj = Convenio(0, nome, contato, fone)
+        ConvenioDAO().inserir(obj)
     @staticmethod
-    def atendimento_listar():
-        return AtendimentoDAO().listar()
+    def convenio_listar():
+        return ConvenioDAO().listar()
     @staticmethod
     def convenio_atualizar(id, nome, contato, fone):
         obj = Convenio(id, nome, contato, fone)
