@@ -35,9 +35,9 @@ class Service:
         ServicoDAO().excluir(id)
 # CLIENTES
     @staticmethod
-    def cliente_inserir(id, nome, email, fone, id_convenio):
-        c=obj = Cliente(id, nome, email, fone, id_convenio)
-        c.set_confirmado=(id_convenio)
+    def cliente_inserir(id, nome, email, senha,fone, id_convenio):
+        c = Cliente(id, nome, email, senha, fone)
+        c.set_id_convenio=(id_convenio)
         ClienteDAO().inserir(c)
     @staticmethod
     def cliente_listar():
@@ -49,14 +49,24 @@ class Service:
     def cliente_listar_nome(nome):
         return ClienteDAO().listar_nome(nome)
     @staticmethod
-    def cliente_atualizar(id, nome, email, fone, id_convenio):
-        obj = Cliente(id, nome, email, fone, id_convenio)
+    def cliente_atualizar(id, nome, email, fone, senha, id_convenio):
+        obj = Cliente(id, nome, email, fone, senha, id_convenio)
         ClienteDAO().atualizar(obj)
-
     @staticmethod
     def cliente_excluir(id):
         ClienteDAO().excluir(id)
     @staticmethod
+    def cliente_criar_admin():
+        for c in Service.cliente_listar():
+            if c.get_email() == "admin": return 
+        Service.cliente_inserir("admin", "admin", "1234", "fone")
+    @staticmethod
+    def cliente_autenticar(email, senha):
+        for c in Service.cliente_listar():
+            if c.get_email() == email and c.get_senha() == senha:
+                return {"id": c.get_id(), "nome": c.get_nome()}
+
+            return None
 #PROFISSIONAL
     def profissional_inserir(nome, email, especializacao, senha):
         obj=Profissional(0, nome, email, especializacao, senha)

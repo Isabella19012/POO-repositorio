@@ -27,13 +27,15 @@ class ManterClienteUI:
         nome = st.text_input("Informe o nome")
         email = st.text_input("Informe o e-mail")
         fone = st.text_input("Informe o fone")
+        senha = st.text_input("Informe a senha", type='password')
+
         #id_convenio = st.text_input("Informe o id do convenio")
         id_convenio = st.selectbox("Informe o convenio", convenio, index = None)
 
         if st.button("Inserir"):
             id_convenio = None
             if id_convenio != None: id_convenio = id_convenio.get_id_convenio()
-            Service.cliente_inserir(nome, email, fone, id_convenio)
+            Service.cliente_inserir(nome, email, fone, senha, id_convenio)
             st.success("Cliente inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -45,17 +47,18 @@ class ManterClienteUI:
             op = st.selectbox("Atualização de Clientes", clientes)
             nome = st.text_input("Novo nome", op.get_nome())
             email = st.text_input("Novo e-mail", op.get_email())
+            senha = st.text_input("Nova senha", op.get_senha())
             fone = st.text_input("Novo fone", op.get_fone())
-            id_convenio = st.text_input('Novo id do convenio', op.get_id_convenio)
+            id_convenio = st.selectbox('Novo id do convenio', op.get_id_convenio())
             convenio = st.selectbox(
                 "Informe o novo convenio",
                 convenios,
                 index=next(
                     (i for i, p in enumerate(convenios)
-                    if p.get_id() == id_convenio),None))
+                    if p.get_id_convenio() == id_convenio),None))
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.cliente_atualizar(id, nome, email, fone, convenio.get_id_convenio() if convenio else 0)
+                Service.cliente_atualizar(id, nome, email, fone, senha, convenio.get_id_convenio() if convenio else 0)
                 st.success("Cliente atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
