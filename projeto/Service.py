@@ -35,7 +35,7 @@ class Service:
         ServicoDAO().excluir(id)
 # CLIENTES
     @staticmethod
-    def cliente_inserir(id, nome, email, senha,fone, id_convenio):
+    def cliente_inserir(id, nome, email, senha, fone, id_convenio):
         c = Cliente(id, nome, email, senha, fone)
         c.set_id_convenio=(id_convenio)
         ClienteDAO().inserir(c)
@@ -49,8 +49,8 @@ class Service:
     def cliente_listar_nome(nome):
         return ClienteDAO().listar_nome(nome)
     @staticmethod
-    def cliente_atualizar(id, nome, email, fone, senha, id_convenio):
-        obj = Cliente(id, nome, email, fone, senha, id_convenio)
+    def cliente_atualizar(id, nome, email, senha, fone, id_convenio):
+        obj = Cliente(id, nome, email, senha, fone, id_convenio)
         ClienteDAO().atualizar(obj)
     @staticmethod
     def cliente_excluir(id):
@@ -68,6 +68,7 @@ class Service:
 
             return None
 #PROFISSIONAL
+    @staticmethod
     def profissional_inserir(nome, email, especializacao, senha):
         obj=Profissional(0, nome, email, especializacao, senha)
         ProfissionalDAO().inserir(obj)
@@ -94,7 +95,7 @@ class Service:
         c.set_confirmado=(confirmado)
         c.set_id_cliente(id_cliente)
         c.set_id_servico(id_servico)
-        c.set_id_profissional
+        c.set_id_profissional(id_profissional)
         horarioDAO().inserir(c) 
     @staticmethod
     def horario_listar():
