@@ -10,5 +10,11 @@
     "nome": "Manaus",
     "contato": "midm@gmail.com",
     "fone": "9090-1665"
+  },
+  {
+    "id": 3,
+    "nome": "Marte",
+    "contato": "@martin",
+    "fone": "92282"
   }
 ]

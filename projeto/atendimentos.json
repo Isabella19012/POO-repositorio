@@ -7,5 +7,14 @@
     "avaliacao": "Doente",
     "prescricao": "Descansar",
     "id_horario": 1
+  },
+  {
+    "id": 2,
+    "data": "15/09/2026 00:00",
+    "queixa_principal": "Dor de pesco\u00e7o",
+    "historico_saude": "Decente",
+    "avaliacao": "Cliente sente dor de pesco\u00e7o e n\u00e3o consegue trabalhar",
+    "prescricao": "Relaxar ",
+    "id_horario": 2
   }
 ]

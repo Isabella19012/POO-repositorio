@@ -12,5 +12,12 @@
     "email": "alex@gmail.com",
     "especializacao": "TI",
     "senha": "12345"
+  },
+  {
+    "id": 3,
+    "nome": "Marina",
+    "email": "Marinina@",
+    "especializacao": "Biotecnologia",
+    "senha": "oitonove"
   }
 ]

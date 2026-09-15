@@ -33,9 +33,11 @@ class ManterClienteUI:
         id_convenio = st.selectbox("Informe o convenio", convenio, index = None)
 
         if st.button("Inserir"):
-            id_convenio = None
-            if id_convenio != None: id_convenio = id_convenio.get_id_convenio()
-            Service.cliente_inserir(nome, email, fone, senha, id_convenio)
+            if id_convenio is not None:
+                id_convenio = id_convenio.get_id()
+            else:
+                id_convenio = 0
+            Service.cliente_inserir(nome, email, senha, fone, id_convenio)
             st.success("Cliente inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -55,10 +57,10 @@ class ManterClienteUI:
                 convenios,
                 index=next(
                     (i for i, p in enumerate(convenios)
-                    if p.get_id_convenio() == id_convenio),None))
+                    if p.get_id() == id_convenio),None))
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.cliente_atualizar(id, nome, email, fone, senha, convenio.get_id_convenio() if convenio else 0)
+                Service.cliente_atualizar(id, nome, email, fone, senha, convenio.get_id() if convenio else 0)
                 st.success("Cliente atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()

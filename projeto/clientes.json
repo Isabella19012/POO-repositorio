@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "nome": "admin",
+    "email": "admin",
+    "fone": "fone",
+    "senha": "1234",
+    "id_convenio": 0
+  },
+  {
+    "id": 2,
+    "nome": "Isa",
+    "email": "Isa@gmail.com",
+    "fone": "0104",
+    "senha": "@Isa",
+    "id_convenio": 0
+  },
+  {
+    "id": 3,
+    "nome": "Isabella",
+    "email": "admin",
+    "fone": "0104",
+    "senha": "1234",
+    "id_convenio": 2
+  }
+]
