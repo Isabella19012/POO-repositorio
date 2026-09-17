@@ -88,6 +88,11 @@ class Service:
     @staticmethod
     def profissional_excluir(id):
         ProfissionalDAO().excluir(id)
+    @staticmethod
+    def profissionl_autenticar(email, senha):
+        for p in Service.profissional_listar():
+            if p.get_email() == email and p.get_senha() == senha:
+                return {"id": p.get_id(), "nome": p.get_nome()}
 #HORARIO
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):

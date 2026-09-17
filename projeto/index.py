@@ -7,6 +7,7 @@ from templetes.manterconvenioui import ManterConvenioUI
 from templetes.abrircontaui import AbrirContaUI
 from templetes.loginui import LoginUI
 from templetes.perfilclienteui import PerfilClienteUI
+from templetes.perfilprofissionalui import PerfilProfissionalUI
 from Service import Service
 import streamlit as st
 
@@ -42,6 +43,9 @@ class IndexUI:
     #     if op == "Cadastro de Serviços": ManterServicoUI.main()
     #     if op == "Cadastro de Horários": ManterHorarioUI.main()
     #     if op == "Cadastro de Profissionais": ManterProfissionalUI.main()
+    def menu_profissional():
+        op = st.sidebar.selectbox("Menu", ["Meus Dados"])
+        if op == "Meus Dados": PerfilProfissionalUI.main()
     def sair_do_sistema():
             if st.sidebar.button("Sair"):
                 del st.session_state["usuario_id"]
@@ -52,10 +56,11 @@ class IndexUI:
             IndexUI.menu_visitante()
         else:
             admin = st.session_state["usuario_nome"] == "admin"
+            profissional = st.session_state["peril"] == 'profissional'
             st.sidebar.write("Bem-vindo(a), " +
                 st.session_state["usuario_nome"])
             if admin: IndexUI.menu_admin()
+            elif profissional: IndexUI.menu
             else: IndexUI.menu_cliente()
             IndexUI.sair_do_sistema()
 
-IndexUI.main()
