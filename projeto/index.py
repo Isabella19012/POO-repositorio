@@ -13,10 +13,9 @@ import streamlit as st
 
 class IndexUI:
     def main():
-        # verifica a existe o usuário admin
         Service.cliente_criar_admin()
-        # monta o sidebar
         IndexUI.sidebar()
+
     def menu_admin():
         Service.cliente_criar_admin()
         op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio"])
@@ -50,17 +49,19 @@ class IndexUI:
             if st.sidebar.button("Sair"):
                 del st.session_state["usuario_id"]
                 del st.session_state["usuario_nome"]
+                del st.session_state["perfil"]
                 st.rerun()
     def sidebar():
         if "usuario_id" not in st.session_state:
             IndexUI.menu_visitante()
         else:
             admin = st.session_state["usuario_nome"] == "admin"
-            profissional = st.session_state["peril"] == 'profissional'
+            profissional = st.session_state["perfil"] == "profissional"
             st.sidebar.write("Bem-vindo(a), " +
                 st.session_state["usuario_nome"])
             if admin: IndexUI.menu_admin()
-            elif profissional: IndexUI.menu
+            elif profissional: IndexUI.menu_profissional()
             else: IndexUI.menu_cliente()
             IndexUI.sair_do_sistema()
+IndexUI.main()
 

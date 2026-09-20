@@ -7,17 +7,17 @@
     "senha": "M\u00e9dico"
   },
   {
-    "id": 2,
-    "nome": "Alex",
-    "email": "alex@gmail.com",
-    "especializacao": "TI",
-    "senha": "12345"
-  },
-  {
     "id": 3,
     "nome": "Marina",
     "email": "Marinina@",
     "especializacao": "Biotecnologia",
     "senha": "oitonove"
+  },
+  {
+    "id": 2,
+    "nome": "Alex",
+    "email": "lexa@gmail.com",
+    "especializacao": "TI",
+    "senha": "12345"
   }
 ]

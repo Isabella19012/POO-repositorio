@@ -11,7 +11,6 @@ class LoginUI:
         if st.button("Entrar"):
             c = Service.cliente_autenticar(email, senha)
             p = Service.profissionl_autenticar(email, senha)
-
             if c:
                 st.session_state["usuario_id"] = c["id"]
                 st.session_state["usuario_nome"] = c["nome"]
