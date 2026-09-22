@@ -8,6 +8,7 @@ from templetes.abrircontaui import AbrirContaUI
 from templetes.loginui import LoginUI
 from templetes.perfilclienteui import PerfilClienteUI
 from templetes.perfilprofissionalui import PerfilProfissionalUI
+from templetes.agendarservicoui import AgendarServicoUI
 from Service import Service
 import streamlit as st
 
@@ -32,16 +33,10 @@ class IndexUI:
         if op == "Abrir Conta": AbrirContaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço"])
         if op == "Meus Dados": PerfilClienteUI.main()
-    # def menu_admin():
-    #     op = st.sidebar.selectbox("Menu", ["Cadastro de Clientes",
-    #     "Cadastro de Serviços", "Cadastro de Horários",
-    #     "Cadastro de Profissionais"])
-    #     if op == "Cadastro de Clientes": ManterClienteUI.main()
-    #     if op == "Cadastro de Serviços": ManterServicoUI.main()
-    #     if op == "Cadastro de Horários": ManterHorarioUI.main()
-    #     if op == "Cadastro de Profissionais": ManterProfissionalUI.main()
+        if op == "Agendar Serviço": AgendarServicoUI.main()
+
     def menu_profissional():
         op = st.sidebar.selectbox("Menu", ["Meus Dados"])
         if op == "Meus Dados": PerfilProfissionalUI.main()

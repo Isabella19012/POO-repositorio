@@ -11,6 +11,7 @@ from models.Atendimento import Atendimento
 from models.AtendimentoDAO import AtendimentoDAO
 from models.Convenio import Convenio
 from models.ConvenioDAO import ConvenioDAO
+from datetime import datetime
 class Service:
 # SERVIÇOS
     @staticmethod
@@ -19,7 +20,9 @@ class Service:
         ServicoDAO().inserir(obj)
     @staticmethod
     def servico_listar():
-        return ServicoDAO().listar()
+        r=ServicoDAO().listar()
+        r.sort(key = lambda obj : obj.get_descricao())
+        return r
     @staticmethod
     def servico_listar_id(id):
         return ServicoDAO().listar_id(id)
@@ -41,7 +44,9 @@ class Service:
         ClienteDAO().inserir(c)
     @staticmethod
     def cliente_listar():
-        return ClienteDAO().listar()
+        r=ClienteDAO().listar()
+        r.sort(key = lambda obj : obj.get_nome())
+        return r
     @staticmethod
     def cliente_listar_id(id):
         return ClienteDAO().listar_id(id)
@@ -74,7 +79,9 @@ class Service:
         ProfissionalDAO().inserir(obj)
     @staticmethod
     def profissional_listar():
-        return ProfissionalDAO().listar()
+        r=ProfissionalDAO().listar()
+        r.sort(key = lambda obj : obj.get_nome())
+        return r
     @staticmethod
     def profissional_listar_id(id):
         return ProfissionalDAO().listar_id(id)
@@ -104,7 +111,25 @@ class Service:
         horarioDAO().inserir(c) 
     @staticmethod
     def horario_listar():
-        return horarioDAO().listar()
+        r=horarioDAO().listar()
+        r.sort(key = lambda obj : obj.get_data())
+        return r
+    @staticmethod
+    def horario_filtrar_profissional(id_profissional):
+        r=[]
+        for h in Service.horario_listar():
+            if h.get_id_profissional() == id_profissional:
+                r.append(h)
+        return r
+    @staticmethod
+    def horario_listar_disponiveis(id_profissional):
+        r=[]
+        agora = datetime.now()
+        for h in Service.horario_listar():
+            if h.get_data() >= agora and h.get_confirmado() == False and h.get_id_cliente() == None and h.get_id_profissional() == id_profissional:
+                    r.append(h)
+        r.sort(key = lambda h : h.get_data())
+        return r
     @staticmethod
     def horario_listar_id(id):
         return horarioDAO().listar_id(id)
@@ -126,7 +151,9 @@ class Service:
         AtendimentoDAO().inserir(obj)
     @staticmethod
     def atendimento_listar():
-        return AtendimentoDAO().listar()
+        r=AtendimentoDAO().listar()
+        r.sort(key = lambda obj : obj.get_avaliacao())
+        return r
     @staticmethod
     def atendimento_atualizar(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
         obj = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
@@ -141,7 +168,9 @@ class Service:
         ConvenioDAO().inserir(obj)
     @staticmethod
     def convenio_listar():
-        return ConvenioDAO().listar()
+        r=ConvenioDAO().listar()
+        r.sort(key = lambda obj : obj.get_nome())
+        return r
     @staticmethod
     def convenio_atualizar(id, nome, contato, fone):
         obj = Convenio(id, nome, contato, fone)
