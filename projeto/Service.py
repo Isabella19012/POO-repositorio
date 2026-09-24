@@ -100,6 +100,10 @@ class Service:
         for p in Service.profissional_listar():
             if p.get_email() == email and p.get_senha() == senha:
                 return {"id": p.get_id(), "nome": p.get_nome()}
+    @staticmethod
+    def profissional_inserir_atendimento(data, horario_inicial, horario_final, intervalo):
+        return None
+
 #HORARIO
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):

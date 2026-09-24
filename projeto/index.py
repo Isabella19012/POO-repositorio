@@ -9,6 +9,12 @@ from templetes.loginui import LoginUI
 from templetes.perfilclienteui import PerfilClienteUI
 from templetes.perfilprofissionalui import PerfilProfissionalUI
 from templetes.agendarservicoui import AgendarServicoUI
+from templetes.abrirminhaagenda import AbrirMinhaAgenda
+from templetes.visualizarmeusservicos import VisualizarServicos
+from templetes.visualizarminhaagenda import VisualizarAgenda
+from templetes.confirmarservico import ConfirmarServico
+from templetes.alterarsenha import AlterarSenha
+
 from Service import Service
 import streamlit as st
 
@@ -19,13 +25,14 @@ class IndexUI:
 
     def menu_admin():
         Service.cliente_criar_admin()
-        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio"])
+        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio", "Alterar Senha"])
         if op == "Clientes": ManterClienteUI.main()
         if op == "Serviços": ManterServicoUI.main()
         if op == 'Horario': ManterHorarioUI.main()
         if op == 'Profissional': ManterProfissionalUI.main()
         if op == 'Atendimento': ManterAtendimentoUI.main()
         if op == 'Convenio': ManterConvenioUI.main()
+        if op == "Alterar Senha" : AlterarSenha.main()
     def menu_visitante():
         op = st.sidebar.selectbox("Menu", ["Entrar no Sistema",
         "Abrir Conta"])
@@ -33,13 +40,17 @@ class IndexUI:
         if op == "Abrir Conta": AbrirContaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Visualizar Serviços"])
         if op == "Meus Dados": PerfilClienteUI.main()
         if op == "Agendar Serviço": AgendarServicoUI.main()
+        if op == "Visualizar Serviços": VisualizarServicos.main()
 
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Minha Agenda", "Visualizar Minha Agenda", "Confirmar Serviço"])
         if op == "Meus Dados": PerfilProfissionalUI.main()
+        if op == "Abrir Minha Agenda": AbrirMinhaAgenda.main()
+        if op == "Visualizar Minha Agenda": VisualizarAgenda.main()
+        if op == "Confirmar Serviço": ConfirmarServico.main()
     def sair_do_sistema():
             if st.sidebar.button("Sair"):
                 del st.session_state["usuario_id"]
