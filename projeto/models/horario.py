@@ -19,8 +19,8 @@ class Horario:
     def set_id(self, id):
         self.__id=id
     def set_data(self, dt):
-        if dt > datetime.now(): self.__data=dt
-        raise ValueError('Data deve estar futuro')
+        if dt < datetime.now(): self.__data=dt
+        else: raise ValueError(f'Data deve estar futuro {dt}')
     def set_confirmado(self, conf):
         self.__confirmado=conf
     def set_id_cliente(self, id):

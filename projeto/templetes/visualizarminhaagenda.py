@@ -16,8 +16,9 @@ class VisualizarAgenda:
                 if cliente != None: cliente = cliente.get_nome()
                 if servico != None: servico = servico.get_descricao()
                 if profissional != None: servico = profissional.get_nome()
-                dic.append({'id':obj.get_id(), 'data': obj.get_data(),
-                            'confirmado': obj.get_confirmado(), 'cliente': cliente,
-                            'serviço': servico, 'profissional': profissional})
+                if obj.get_id() == st.session_state["usuario_id"]:
+                    dic.append({'id':obj.get_id(), 'data': obj.get_data(),
+                                'confirmado': obj.get_confirmado(), 'cliente': cliente,
+                                'serviço': servico, 'profissional': profissional})
             df = pd.DataFrame(dic)
             st.dataframe(df)
