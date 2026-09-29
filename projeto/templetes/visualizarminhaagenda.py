@@ -15,7 +15,7 @@ class VisualizarAgenda:
                 profissional = Service.profissional_listar_id(obj.get_id_profissional())
                 if cliente != None: cliente = cliente.get_nome()
                 if servico != None: servico = servico.get_descricao()
-                if profissional != None: servico = profissional.get_nome()
+                if profissional != None: profissional = profissional.get_nome()
                 if obj.get_id() == st.session_state["usuario_id"]:
                     dic.append({'id':obj.get_id(), 'data': obj.get_data(),
                                 'confirmado': obj.get_confirmado(), 'cliente': cliente,
