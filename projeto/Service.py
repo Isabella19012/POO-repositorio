@@ -11,7 +11,7 @@ from models.Atendimento import Atendimento
 from models.AtendimentoDAO import AtendimentoDAO
 from models.Convenio import Convenio
 from models.ConvenioDAO import ConvenioDAO
-from datetime import datetime
+from datetime import datetime, timedelta
 class Service:
 # SERVIÇOS
     @staticmethod
@@ -148,6 +148,18 @@ class Service:
     @staticmethod
     def horario_excluir(id):
         horarioDAO().excluir(id)
+    @staticmethod
+    def horario_abrir_minha_agenda(data, horario_inicial, horario_final, intervalo, id_profissional):
+        data_inicio = datetime.strptime(data +" "+ horario_inicial, "%d/%m/%Y %H:%M")        
+        data_fim = datetime.strptime(data +" "+ horario_final, "%d/%m/%Y %H:%M")        
+        delta = timedelta(minutes = intervalo)
+        x=data_inicio
+        while x<= data_fim:
+            Service.horario_inserir(x, False, None, None, id_profissional)
+            x = x+delta
+
+
+
 #ATENDIMENTO
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):

@@ -4,14 +4,7 @@
     "nome": "Martim",
     "email": "tim123@gmail.com",
     "especializacao": "aprender",
-    "senha": "M\u00e9dico"
-  },
-  {
-    "id": 3,
-    "nome": "Marina",
-    "email": "Marinina@",
-    "especializacao": "Biotecnologia",
-    "senha": "oitonove"
+    "senha": "Medico"
   },
   {
     "id": 2,
@@ -19,5 +12,12 @@
     "email": "lexa@gmail.com",
     "especializacao": "TI",
     "senha": "12345"
+  },
+  {
+    "id": 3,
+    "nome": "Marina",
+    "email": "Marinina@",
+    "especializacao": "Biotecnologia",
+    "senha": "oitonove"
   }
 ]

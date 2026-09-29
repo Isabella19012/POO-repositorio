@@ -17,22 +17,18 @@ class Horario:
     def get_id_profissional(self): return self.__id_profissional
 
     def set_id(self, id):
-        if id < 0: raise ValueError('Id não pode ser negativo')
         self.__id=id
     def set_data(self, dt):
-        if dt > datetime.now(): raise ValueError('Data não pode estar no futuro')
-        self.__data=dt
+        if dt > datetime.now(): self.__data=dt
+        raise ValueError('Data deve estar futuro')
     def set_confirmado(self, conf):
         self.__confirmado=conf
     def set_id_cliente(self, id):
-        if id < 0: raise ValueError('Id não pode ser negativo')
         self.__id_cliente=id
     def set_id_servico(self, id):
-        if id < 0: raise ValueError('Id não pode ser negativo')
         self.__id_servico=id
     def set_id_profissional(self, id):
-        if id < 0: raise ValueError('Id não pode ser negativo')
-        self.__id_profissional =id
+        self.__id_profissional = id
     def to_json(self):
         dic = {"id":self.__id, "data": self.__data.strftime("%d/%m/%Y %H:%M"), 'confirmado':self.__confirmado, 'id_cliente':self.__id_cliente, 'id_servico': self.__id_servico, 'id_profissional': self.__id_profissional}
         return dic
