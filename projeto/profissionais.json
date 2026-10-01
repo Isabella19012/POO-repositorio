@@ -19,5 +19,12 @@
     "email": "Marinina@",
     "especializacao": "Biotecnologia",
     "senha": "oitonove"
+  },
+  {
+    "id": 4,
+    "nome": "Profissional",
+    "email": "prof",
+    "especializacao": "Pedagogia",
+    "senha": "1"
   }
 ]

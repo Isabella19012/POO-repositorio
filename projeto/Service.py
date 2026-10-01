@@ -107,6 +107,7 @@ class Service:
 #HORARIO
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):
+        if data < datetime.now(): raise ValueError('Data não pode estar no passado')
         c= Horario(0, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
@@ -157,8 +158,6 @@ class Service:
         while x<= data_fim:
             Service.horario_inserir(x, False, None, None, id_profissional)
             x = x+delta
-
-
 
 #ATENDIMENTO
     @staticmethod
