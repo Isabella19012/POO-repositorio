@@ -1,6 +1,6 @@
 from datetime import datetime
 class Atendimento:
-    def __init__(self, id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
+    def __init__(self, id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago):
         self.set_id(id)
         self.set_data(data)
         self.set_queixa_principal(queixa_principal)
@@ -8,6 +8,9 @@ class Atendimento:
         self.set_avaliacao(avaliacao)
         self.set_prescricao(prescricao)
         self.set_id_horario(id_horario)
+        self.set_total(total)
+        self.set_pago(pago)
+        
     def __str__(self):
         return f'{self.__id} - {self.__data} - {self.__queixa_principal} - {self.__historico_saude} - {self.__avaliacao} - {self.__prescrisao} - {self.__id_horario}'
     def set_id(self, id):
@@ -31,6 +34,12 @@ class Atendimento:
     def set_id_horario(self, id):
         if id<=0: raise ValueError('O id não pode ser negativo')
         self.__id_horario = id
+    def set_total(self, total):
+        if total <= 0: raise ValueError('Total pode ser negativo')
+        self.__total = id
+    def set_pago(self, pg):
+        # if pg != False or pg != True: raise ValueError('Você tem que ')
+        self.__pago = pg
     def get_id(self): return self.__id
     def get_data(self): return self.__data
     def get_queixa_principal(self): return self.__queixa_principal
@@ -38,6 +47,8 @@ class Atendimento:
     def get_avaliacao(self): return self.__avaliacao
     def get_prescricao(self):return self.__prescrisao
     def get_id_horario(self): return self.__id_horario
+    def get_total(self): return self.__total
+    def get_pago(self): return self.__pago
     def to_json(self):
         return {
             "id": self.__id,
@@ -46,7 +57,9 @@ class Atendimento:
             "historico_saude": self.__historico_saude,
             "avaliacao": self.__avaliacao,
             "prescricao": self.__prescrisao,
-            "id_horario": self.__id_horario
+            "id_horario": self.__id_horario,
+            "total": self.__total,
+            "pago": self.__pago
         }
 
     @staticmethod
@@ -58,5 +71,7 @@ class Atendimento:
             dic["historico_saude"],
             dic["avaliacao"],
             dic["prescricao"],
-            dic["id_horario"]
+            dic["id_horario"],
+            dic["total"],
+            dic["pago"]
         )

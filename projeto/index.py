@@ -14,6 +14,8 @@ from templetes.visualizarmeusservicos import VisualizarServicos
 from templetes.visualizarminhaagenda import VisualizarAgenda
 from templetes.confirmarservico import ConfirmarServico
 from templetes.alterarsenha import AlterarSenha
+from templetes.pagaratendimento import PagarAtendimento
+from templetes.registraratendimento import RegistrarAtendimento
 
 from Service import Service
 import streamlit as st
@@ -40,17 +42,19 @@ class IndexUI:
         if op == "Abrir Conta": AbrirContaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Visualizar Serviços"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Visualizar Serviços", "Pagar Atendimento"])
         if op == "Meus Dados": PerfilClienteUI.main()
         if op == "Agendar Serviço": AgendarServicoUI.main()
         if op == "Visualizar Serviços": VisualizarServicos.main()
+        if op == "Pagar Atendimento": PagarAtendimento.main()
 
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Minha Agenda", "Visualizar Minha Agenda", "Confirmar Serviço"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Minha Agenda", "Visualizar Minha Agenda", "Confirmar Serviço", "Registrar Atendimento"])
         if op == "Meus Dados": PerfilProfissionalUI.main()
         if op == "Abrir Minha Agenda": AbrirMinhaAgenda.main()
         if op == "Visualizar Minha Agenda": VisualizarAgenda.main()
         if op == "Confirmar Serviço": ConfirmarServico.main()
+        if op == "Registrar Atendimento": RegistrarAtendimento.main()
     def sair_do_sistema():
             if st.sidebar.button("Sair"):
                 del st.session_state["usuario_id"]

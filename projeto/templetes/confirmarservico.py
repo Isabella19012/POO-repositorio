@@ -1,21 +1,22 @@
-from Service import Service
 import streamlit as st
+from Service import Service
 import time
+from datetime import datetime
+
 class ConfirmarServico:
     def main():
-        disponiveis =[]
-        id =st.session_state["usuario_id"]
-        st.header("Confirmar Serviços")
-        horarios = Service.horario_listar()
-        for x in horarios: 
-            if x.get_confirmado() == False: disponiveis.append(x)
-        clientes = Service.cliente_listar()
-        if len(horarios) == 0: st.write("Nenhum horário disponivél cadastrado.")
-        else: 
-            horario = st.selectbox('Informe o horário', disponiveis) 
-            cliente = st.selectbox('Informe o cliente', clientes)
+        st.header("Confirmar Serviço")
+        horarios = Service.horario_confirmar_servico(st.session_state["usuario_id"])
+        if len(horarios) == 0: st.write("Nenhum horário cadastrado")
+        else:
+            clientes = Service.cliente_listar()
+            op = st.selectbox("Informe o horário", horarios)
+            id_cliente = None if op.get_id_cliente() in [0, None] else op.get_id_cliente()
+            cliente = st.selectbox("Informe o novo cliente", clientes, next((i for i, c in enumerate(clientes) if c.get_id() == id_cliente), None), disabled = True)
             if st.button("Confirmar"):
-                Service.horario_atualizar(horario.get_id(), horario.get_data(), True, cliente.get_id(), horario.get_id_servico(), id) #id, data, confirmado, id_cliente, id_servico, id_profissional
+                id_cliente = None
+                if cliente != None: id_cliente = cliente.get_id()
+                Service.horario_atualizar(op.get_id(), op.get_data(), True, id_cliente, op.get_id_servico(), op.get_id_profissional())
+                st.success("Horário confirmado com sucesso")
                 time.sleep(2)
                 st.rerun()
-                st.success("Horário confirmado com sucesso")

@@ -19,6 +19,6 @@ class AgendarServicoUI:
                     horario.get_data(), False,
                     st.session_state["usuario_id"],
                     servico.get_id(), profissional.get_id())
-                st.sucess('Horário agendado com sucesso')
+                    st.success('Horário agendado com sucesso')
                 time.sleep(2)
                 st.rerun()

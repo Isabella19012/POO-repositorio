@@ -100,9 +100,6 @@ class Service:
         for p in Service.profissional_listar():
             if p.get_email() == email and p.get_senha() == senha:
                 return {"id": p.get_id(), "nome": p.get_nome()}
-    @staticmethod
-    def profissional_inserir_atendimento(data, horario_inicial, horario_final, intervalo):
-        return None
 
 #HORARIO
     @staticmethod
@@ -127,13 +124,21 @@ class Service:
                 r.append(h)
         return r
     @staticmethod
-    def horario_listar_disponiveis(id_profissional):
+    def horario_listar_disponiveis(id_cliente):
         r=[]
-        agora = datetime.now()
         for h in Service.horario_listar():
-            if h.get_data() >= agora and h.get_confirmado() == False and h.get_id_cliente() == None and h.get_id_profissional() == id_profissional:
+            if h.get_id_cliente() == id_cliente and h.get_confirmado == False:
                     r.append(h)
         r.sort(key = lambda h : h.get_data())
+        return r
+    @staticmethod
+    def horario_confirmar_servico(id_profissional):
+        r = []
+        for h in Service.horario_listar():
+            if h.get_confirmado() == False \
+            and h.get_id_cliente() != None and h.get_id_profissional() == id_profissional:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
         return r
     @staticmethod
     def horario_listar_id(id):
@@ -161,8 +166,9 @@ class Service:
 
 #ATENDIMENTO
     @staticmethod
-    def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
-        obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
+    def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago):
+        obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario,  total)
+        obj.set_pago(pago)
         AtendimentoDAO().inserir(obj)
     @staticmethod
     def atendimento_listar():
