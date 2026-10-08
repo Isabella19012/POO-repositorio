@@ -70,11 +70,8 @@ class ManterHorarioUI:
 
             data = st.text_input(
                 "Informe a nova data e horário do serviço",
-                op.get_data().strftime("%d/%m/%Y %H:%M")
-            )
-
+                op.get_data().strftime("%d/%m/%Y %H:%M"))
             confirmado = st.checkbox("Nova confirmação", op.get_confirmado())
-
             id_cliente = op.get_id_cliente()
             id_servico = op.get_id_servico()
             id_profissional = op.get_id_profissional()
@@ -82,22 +79,14 @@ class ManterHorarioUI:
             cliente = st.selectbox(
                 "Informe o novo cliente",
                 clientes,
-                index=next(
-                    (i for i, c in enumerate(clientes)
-                    if c.get_id() == id_cliente),
-                    None
-                )
-            )
+                index=next((i for i, c in enumerate(clientes)if c.get_id() == id_cliente),None))
 
             servico = st.selectbox(
                 "Informe o novo serviço",
                 servicos,
                 index=next(
                     (i for i, s in enumerate(servicos)
-                    if s.get_id() == id_servico),
-                    None
-                )
-            )
+                    if s.get_id() == id_servico), None))
             profissional = st.selectbox(
                 "Informe o novo profissional",
                 profissionais,
@@ -114,8 +103,7 @@ class ManterHorarioUI:
                     confirmado,
                     cliente.get_id() if cliente else 0,
                     servico.get_id() if servico else 0,
-                    profissional.get_id() if profissional else 0
-                )
+                    profissional.get_id() if profissional else 0)
                 st.success("Horário atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()

@@ -11,6 +11,8 @@ from models.Atendimento import Atendimento
 from models.AtendimentoDAO import AtendimentoDAO
 from models.Convenio import Convenio
 from models.ConvenioDAO import ConvenioDAO
+from models.AtendimentoItens import AtendimentoItens
+from models.AtendimentoItensDAO import AtendimentoItensDAO
 from datetime import datetime, timedelta
 class Service:
 # SERVIÇOS
@@ -226,3 +228,20 @@ class Service:
     @staticmethod
     def convenio_excluir(id):
         ConvenioDAO().excluir(id)
+#Atentimento Itens
+    @staticmethod
+    def atendimentoitens_inserir(id_atendimento, id_servico, quantidade, valor):
+        obj = AtendimentoItens(0, id_atendimento, id_servico, quantidade, valor)
+        AtendimentoItensDAO().inserir(obj)
+    @staticmethod
+    def atendimentoitens_listar():
+        r=AtendimentoItensDAO().listar()
+        r.sort(key = lambda obj : obj.get_valor())
+        return r
+    @staticmethod
+    def atendimentoitens_atualizar(id, id_atendimento, id_servico, quantidade, valor):
+        obj = AtendimentoItens(id, id_atendimento, id_servico, quantidade, valor)
+        AtendimentoItensDAO().atualizar(obj)
+    @staticmethod
+    def atendimento_itens(id):
+        AtendimentoItensDAO.excluir(id)

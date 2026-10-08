@@ -16,7 +16,7 @@ from templetes.confirmarservico import ConfirmarServico
 from templetes.alterarsenha import AlterarSenha
 from templetes.pagaratendimento import PagarAtendimento
 from templetes.registraratendimento import RegistrarAtendimento
-
+from templetes.manteratendimentoitensui import ManterAtendimentoItensUI
 from Service import Service
 import streamlit as st
 
@@ -27,13 +27,14 @@ class IndexUI:
 
     def menu_admin():
         Service.cliente_criar_admin()
-        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio", "Alterar Senha"])
+        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio","Atendimento Itens", "Alterar Senha"])
         if op == "Clientes": ManterClienteUI.main()
         if op == "Serviços": ManterServicoUI.main()
         if op == 'Horario': ManterHorarioUI.main()
         if op == 'Profissional': ManterProfissionalUI.main()
         if op == 'Atendimento': ManterAtendimentoUI.main()
         if op == 'Convenio': ManterConvenioUI.main()
+        if op == 'Atendimento Itens': ManterAtendimentoItensUI.main()
         if op == "Alterar Senha" : AlterarSenha.main()
     def menu_visitante():
         op = st.sidebar.selectbox("Menu", ["Entrar no Sistema",
