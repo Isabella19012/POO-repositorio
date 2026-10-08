@@ -72,6 +72,14 @@ class Service:
             if c.get_email() == email and c.get_senha() == senha:
                 return {"id": c.get_id(), "nome": c.get_nome()}
         return None
+    @classmethod
+    def cliente_listar_pagamentos(cls, id_cliente):
+        r = []
+        for a in cls.atendimento_listar():
+            h = cls.horario_listar_id(a.get_id_horario())
+            if h and h.get_id_cliente() == id_cliente and False == a.get_pago():
+                r.append(a)
+        return r
 #PROFISSIONAL
     @staticmethod
     def profissional_inserir(nome, email, especializacao, senha):
@@ -124,12 +132,14 @@ class Service:
                 r.append(h)
         return r
     @staticmethod
-    def horario_listar_disponiveis(id_cliente):
-        r=[]
+    def horario_listar_disponiveis(id_profissional):
+        r = []
+        agora = datetime.now()
         for h in Service.horario_listar():
-            if h.get_id_cliente() == id_cliente and h.get_confirmado == False:
-                    r.append(h)
-        r.sort(key = lambda h : h.get_data())
+            if h.get_data() >= agora and h.get_confirmado() == False \
+            and h.get_id_cliente() == None and h.get_id_profissional() == id_profissional:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
         return r
     @staticmethod
     def horario_confirmar_servico(id_profissional):
@@ -163,6 +173,23 @@ class Service:
         while x<= data_fim:
             Service.horario_inserir(x, False, None, None, id_profissional)
             x = x+delta
+    @staticmethod
+    def horario_visualizar_minha_agenda(id_profissional):
+        r = []
+        for h in Service.horario_listar():
+            if h.get_id_profissional() == id_profissional:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
+    @staticmethod
+    def horario_visualizar_meus_servicos(id_cliente):
+        r = []
+        for h in Service.horario_listar():
+            if h.get_id_cliente() == id_cliente:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
+
 
 #ATENDIMENTO
     @staticmethod

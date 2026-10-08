@@ -43,15 +43,15 @@ class ManterClienteUI:
             st.rerun()
     def atualizar():
         clientes = Service.cliente_listar()
+        convenios = Service.convenio_listar()
         if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
         else:
-            convenios = Service.convenio_listar()
             op = st.selectbox("Atualização de Clientes", clientes)
             nome = st.text_input("Novo nome", op.get_nome())
             email = st.text_input("Novo e-mail", op.get_email())
             senha = st.text_input("Nova senha", op.get_senha())
             fone = st.text_input("Novo fone", op.get_fone())
-            id_convenio = st.selectbox('Novo id do convenio', op.get_id_convenio())
+            id_convenio = st.selectbox('Novo id do convenio', convenios)
             convenio = st.selectbox(
                 "Informe o novo convenio",
                 convenios,
