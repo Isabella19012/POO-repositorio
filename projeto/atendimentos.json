@@ -53,5 +53,16 @@
     "id_horario": 5,
     "total": 150,
     "pago": false
+  },
+  {
+    "id": 6,
+    "data": "20/10/2026 00:00",
+    "queixa_principal": "Diarreia, dor de cabe\u00e7a, manchas nas cochas",
+    "historico_saude": "M\u00e1 sa\u00fade",
+    "avaliacao": "Cliente apresenta transtornos mentais, al\u00e9m dos sintomas ditos",
+    "prescricao": "Tomar dipirona",
+    "id_horario": 24,
+    "total": 90,
+    "pago": false
   }
 ]

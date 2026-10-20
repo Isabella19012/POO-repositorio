@@ -16,7 +16,7 @@ class RegistrarAtendimento:
         total = st.text_input('Total do atendimento')
         pago = st.checkbox("Pago")
         if st.button("Inserir"):
-            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y"), queixa_principal, historico_saude, avaliacao, prescricao, int(id_horario), int(total), pago)
+            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y"), queixa_principal, historico_saude, avaliacao, prescricao, id_horario.get_id(), int(total), pago)
             st.success("Atendimento inserido com sucesso")
             time.sleep(2)
             st.rerun()
