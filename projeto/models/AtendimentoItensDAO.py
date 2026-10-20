@@ -34,12 +34,6 @@ class AtendimentoItensDAO:
         if aux != None:
             self.__objetos.remove(aux)
             self.__salvar()
-    def listar_nome(self, nome):
-        lista = []
-        for itens in self.__objetos:
-            if itens.get_nome().lower().startswith(nome.lower()):
-                lista.append(itens)
-        return lista
     def __abrir(self):
         try:
             arquivo = open(self.__arquivo, mode='r')

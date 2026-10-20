@@ -11,7 +11,7 @@ class AtendimentoItens:
         if id < 0: raise ValueError("ID deve ser positivo")
         self.__id = id
     def set_quantidade(self, qtd):
-        if qtd == "": raise ValueError("Deve ser maior que 0")
+        if qtd < 0: raise ValueError("Deve ser maior que 0")
         self.__quantidade = qtd
     def set_id_servico(self, id):
         if id < 0: raise ValueError("ID do serviço deve ser positivo")
@@ -24,15 +24,13 @@ class AtendimentoItens:
         self.__valor= s
 
     def get_id(self) : return self.__id
-    def get_nome(self) : return self.__valor
-    def get_email(self) : return self.__quantidade
-    def get_fone(self) : return self.__id_atendimento
-    def get_id_convenio(self): return self.__id_servico
+    def get_valor(self) : return self.__valor
+    def get_quantidade(self) : return self.__quantidade
+    def get_id_atendimento(self) : return self.__id_atendimento
+    def get_id_servico(self): return self.__id_servico
     def to_json(self):
         return {'id': self.__id, 'id_atendimento': self.__id_atendimento, 'id_servico': self.__id_servico,'quantidade': self.__quantidade, 'valor': self.__valor}
     @staticmethod
     def from_json(dic):
-        c = AtendimentoItens(dic['id'], dic['quantidade'],dic['valor'])
-        c.set_id_atendimento(dic['id_atendimento'])
-        c.set_id_servico(dic['id_servico'])
+        c = AtendimentoItens(dic['id'], dic['id_atendimento'],dic['id_servico'], dic['quantidade'], dic['valor'])
         return c

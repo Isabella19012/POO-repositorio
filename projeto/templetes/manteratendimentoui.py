@@ -34,31 +34,45 @@ class ManterAtendimentoUI:
         prescricao = st.text_input('informe a prescrição')
         id_horario = st.selectbox('Informe o id do horário', horarios)
         total = st.text_input('Total do atendimento')
-        pago = st.checkbox("Pago")
+        pago = st.checkbox("Pago", key="pago_inserir")
         if st.button("Inserir"):
-            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y"), queixa_principal, historico_saude, avaliacao, prescricao, int(id_horario), int(total), pago)
+            Service.atendimento_inserir(datetime.strptime(data, "%d/%m/%Y"), queixa_principal, historico_saude, avaliacao, prescricao, id_horario.get_id(), int(total), pago)
             st.success("Atendimento inserido com sucesso")
             time.sleep(2)
             st.rerun()
+
     def atualizar():
+        horarios = Service.horario_listar()
         atendimentos = Service.atendimento_listar()
-        if len(atendimentos) == 0: st.write("Nenhum atendimento cadastrado")
+
+        if len(atendimentos) == 0:
+            st.write("Nenhum atendimento cadastrado")
         else:
             op = st.selectbox("Atualização de Atendimentos", atendimentos)
-            data = st.text_input("Informe a data")
-            queixa_principal = st.text_input("Informe a queixa principal")
-            historico_saude = st.text_input("Informe o histórico de saúde: ")
-            avaliacao = st.text_input("Informe a avaliação")
-            prescricao = st.text_input('informe a prescrição')
-            id_horario = st.text_input('Informe o id do horário')
-            total = st.text_input('Total do atendimento')
-            pago = st.checkbox("Pago")
+
+            data = st.text_input("Informe a data",op.get_data().strftime("%d/%m/%Y"))
+            queixa_principal = st.text_input("Informe a queixa principal", op.get_queixa_principal())
+            historico_saude = st.text_input("Informe o histórico de saúde",op.get_historico_saude())
+            avaliacao = st.text_input("Informe a avaliação",op.get_avaliacao())
+            prescricao = st.text_input("Informe a prescrição",op.get_prescricao())
+            id_horario = st.selectbox("Informe o horário", horarios)
+            total = st.text_input("Total do atendimento",str(op.get_total()))
+            pago = st.checkbox("Pago", value=op.get_pago(), key="pago_atualizar")
+
             if st.button("Atualizar"):
-                id = op.get_id()
-                Service.atendimento_atualizar(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago)
+                data = datetime.strptime(data, "%d/%m/%Y")
+                id_horario = id_horario.get_id()
+                total = int(total)
+
+                Service.atendimento_atualizar(
+                    op.get_id(), data, queixa_principal,
+                    historico_saude, avaliacao, prescricao,
+                    id_horario, total, pago)
+
                 st.success("Atendimento atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()
+
     def excluir():
         atendimentos = Service.atendimento_listar()
         if len(atendimentos) == 0: st.write("Nenhum atendimento cadastrado")

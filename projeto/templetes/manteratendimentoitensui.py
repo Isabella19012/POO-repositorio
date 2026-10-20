@@ -11,66 +11,97 @@ class ManterAtendimentoItensUI:
             with tab3: ManterAtendimentoItensUI.atualizar()
             with tab4: ManterAtendimentoItensUI.excluir()
     def inserir():
-        atendimentos=Service.atendimento_listar()
-        servicos=Service.servico_listar()
-        atendimento = st.selectbox("Informe o atendimento", atendimentos, index = None)
-        servico = st.selectbox("Informe o serviço", servicos, index = None)
-        quantidade = st.text_input("Informe o nome")
-        valor = st.text_input("Informe o e-mail")
+
+        atendimentos = Service.atendimento_listar()
+        servicos = Service.servico_listar()
+
+        if len(atendimentos) == 0:
+            st.write("Cadastre um atendimento primeiro.")
+            return
+
+        if len(servicos) == 0:
+            st.write("Cadastre um serviço primeiro.")
+            return
+
+        atendimento = st.selectbox("Informe o atendimento", atendimentos, index=None)
+        servico = st.selectbox("Informe o serviço", servicos, index=None)
+        quantidade = st.text_input("Informe a quantidade")
+        valor = st.text_input("Informe o valor")
 
         if st.button("Inserir"):
-            id_servico = None
-            id_atendimento = None
-            if atendimento != None: id_atendimento = atendimento.get_id()
-            if servico != None: id_servico = servico.get_id()
-            Service.atendimentoitens_inserir(id_atendimento, id_servico, quantidade, valor)
-            st.success("Itens de atendimento inseridos com sucesso")
-            time.sleep(2)
-            st.rerun()
+            if atendimento is None or servico is None:
+                st.error("Selecione o atendimento e o serviço.")
+            elif quantidade == "" or valor == "":
+                st.error("Preencha a quantidade e o valor.")
+            else:
+                id_atendimento = atendimento.get_id()
+                id_servico = servico.get_id()
+
+                Service.atendimentoitens_inserir(
+                    id_atendimento,
+                    id_servico,
+                    int(quantidade),
+                    float(valor))
+
+                st.success("Itens de atendimento inseridos com sucesso")
+                time.sleep(2)
+                st.rerun()
+
     def listar():
         itens = Service.atendimentoitens_listar()
-        if len(itens) == 0: st.write("Nenhum item cadastrado")
+        if len(itens) == 0: st.write("Nenhum item de atendimento cadastrado")
         else:
-            for i in itens:
-                lista=[]
-                lista.append(i)
-                df = pd.DataFrame(lista)
-                st.dataframe(df)
-            return lista
+            list_dic = []
+            for obj in itens: list_dic.append(obj.to_json())
+            df = pd.DataFrame(list_dic)
+            st.dataframe(df)
+
     def atualizar():
-        atendimentositens = Service.atendimentositens_listar()
+        atendimentositens = Service.atendimentoitens_listar()
 
         if len(atendimentositens) == 0:
             st.write("Nenhum item de atendimento cadastrado")
         else:
-            op = st.selectbox("Atualização de Horários", atendimentositens)
-            id_servico = op.get_id_servico()
-            id_atendimento = op.get_id_atendimento()
-            atendimentos=Service.atendimento_listar()
-            servicos=Service.servico_listar()
+            op = st.selectbox("Atualização de Itens de atendimento", atendimentositens)
 
-            atendimento = st.selectbox("Informe o novo atendimento", atendimentos, index = None)
-            servico = st.selectbox("Informe o novo serviço", servicos, index = None)
-            quantidade = st.text_input("Informe a nova quantidade", op.get_quantidade )
-            valor = st.text_input("Informe o novo valor", op.get_valor)
+            atendimentos = Service.atendimento_listar()
+            servicos = Service.servico_listar()
+
+            atendimento = st.selectbox("Informe o novo atendimento", atendimentos, index=None)
+            servico = st.selectbox("Informe o novo serviço", servicos, index=None)
+            quantidade = st.text_input("Informe a nova quantidade", str(op.get_quantidade()))
+            valor = st.text_input("Informe o novo valor", str(op.get_valor()))
 
             if st.button("Atualizar"):
-                id_servico = None
-                id_atendimento = None
-                if atendimento != None: id_atendimento = atendimento.get_id()
-                if servico != None: id_servico = servico.get_id()
-                Service.atendimentoitens_atualizar(op.get_id(), id_atendimento, id_servico, quantidade, valor)
-                st.success("Itens de atendimento atualizados com sucesso")
-                time.sleep(2)
-                st.rerun()
+                id_servico = op.get_id_servico()
+                id_atendimento = op.get_id_atendimento()
+
+                if atendimento != None:
+                    id_atendimento = atendimento.get_id()
+                if servico != None:
+                    id_servico = servico.get_id()
+
+                if quantidade == "" or valor == "":
+                    st.error("Preencha a quantidade e o valor.")
+                else:
+                    Service.atendimentoitens_atualizar(
+                        op.get_id(),
+                        id_atendimento,
+                        id_servico,
+                        int(quantidade),
+                        float(valor))
+                    st.success("Itens de atendimento atualizados com sucesso")
+                    time.sleep(2)
+                    st.rerun()
+
     def excluir():
         itens = Service.atendimentoitens_listar()
-        if len(itens) == 0: st.write("Nenhum atendimento cadastrado")
+        if len(itens) == 0: st.write("Nenhum item de atendimento cadastrado")
         else:
-            op = st.selectbox("Exclusão de atendimento", itens)
+            op = st.selectbox("Exclusão de item de atendimento", itens)
             if st.button("Excluir"):
                 id = op.get_id()
                 Service.atendimentoitens_excluir(id)
-                st.success("Atendimento excluído com sucesso")
+                st.success("Item de atendimento excluído com sucesso")
                 time.sleep(2)
                 st.rerun()

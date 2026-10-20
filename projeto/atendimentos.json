@@ -7,7 +7,7 @@
     "avaliacao": "Doente",
     "prescricao": "Descansar",
     "id_horario": 1,
-    "total": 120.00,
+    "total": 120.0,
     "pago": false
   },
   {
@@ -18,7 +18,40 @@
     "avaliacao": "Cliente sente dor de pesco\u00e7o e n\u00e3o consegue trabalhar",
     "prescricao": "Relaxar ",
     "id_horario": 2,
-    "total": 135.00,
+    "total": 135.0,
+    "pago": false
+  },
+  {
+    "id": 3,
+    "data": "20/10/2026 00:00",
+    "queixa_principal": "queixa principal",
+    "historico_saude": "historico",
+    "avaliacao": "avalia\u00e7\u00e3o",
+    "prescricao": "prescri\u00e7\u00e3o",
+    "id_horario": 5,
+    "total": 331,
+    "pago": false
+  },
+  {
+    "id": 4,
+    "data": "20/10/2026 00:00",
+    "queixa_principal": "qp",
+    "historico_saude": "hs",
+    "avaliacao": "a",
+    "prescricao": "p",
+    "id_horario": 5,
+    "total": 1250,
+    "pago": false
+  },
+  {
+    "id": 5,
+    "data": "20/10/2026 00:00",
+    "queixa_principal": "queixa principal",
+    "historico_saude": "hist\u00f3rico de sa\u00fade",
+    "avaliacao": "avalia\u00e7\u00e3o",
+    "prescricao": "prescri\u00e7\u00e3o",
+    "id_horario": 5,
+    "total": 150,
     "pago": false
   }
 ]

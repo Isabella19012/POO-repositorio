@@ -12,7 +12,7 @@ class Atendimento:
         self.set_pago(pago)
         
     def __str__(self):
-        return f'{self.__id} - {self.__data} - {self.__queixa_principal} - {self.__historico_saude} - {self.__avaliacao} - {self.__prescrisao} - {self.__id_horario}'
+        return f'{self.__id} - {self.__data} - {self.__queixa_principal} - {self.__historico_saude} - {self.__avaliacao} - {self.__prescricao} - {self.__id_horario}'
     def set_id(self, id):
         if id<0: raise ValueError('O id não pode ser negativo')
         self.__id = id
@@ -30,13 +30,13 @@ class Atendimento:
         self.__avaliacao = hs
     def set_prescricao(self, hs):
         if hs == '': raise ValueError('Deve ser texto.')
-        self.__prescrisao = hs
+        self.__prescricao = hs
     def set_id_horario(self, id):
         if id<=0: raise ValueError('O id não pode ser negativo')
         self.__id_horario = id
     def set_total(self, total):
-        if total <= 0: raise ValueError('Total pode ser negativo')
-        self.__total = id
+        if total < 0: raise ValueError('Total não pode ser menor que 0')
+        self.__total = total
     def set_pago(self, pg):
         # if pg != False or pg != True: raise ValueError('Você tem que ')
         self.__pago = pg
@@ -45,7 +45,7 @@ class Atendimento:
     def get_queixa_principal(self): return self.__queixa_principal
     def get_historico_saude(self): return self.__historico_saude
     def get_avaliacao(self): return self.__avaliacao
-    def get_prescricao(self):return self.__prescrisao
+    def get_prescricao(self):return self.__prescricao
     def get_id_horario(self): return self.__id_horario
     def get_total(self): return self.__total
     def get_pago(self): return self.__pago
@@ -56,7 +56,7 @@ class Atendimento:
             "queixa_principal": self.__queixa_principal,
             "historico_saude": self.__historico_saude,
             "avaliacao": self.__avaliacao,
-            "prescricao": self.__prescrisao,
+            "prescricao": self.__prescricao,
             "id_horario": self.__id_horario,
             "total": self.__total,
             "pago": self.__pago

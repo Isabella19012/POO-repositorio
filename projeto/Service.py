@@ -196,8 +196,7 @@ class Service:
 #ATENDIMENTO
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago):
-        obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario,  total)
-        obj.set_pago(pago)
+        obj = Atendimento(0, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario,  total, pago)
         AtendimentoDAO().inserir(obj)
     @staticmethod
     def atendimento_listar():
@@ -205,8 +204,8 @@ class Service:
         r.sort(key = lambda obj : obj.get_avaliacao())
         return r
     @staticmethod
-    def atendimento_atualizar(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario):
-        obj = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario)
+    def atendimento_atualizar(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago):
+        obj = Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago)
         AtendimentoDAO().atualizar(obj)
     @staticmethod
     def atendimento_excluir(id):
@@ -243,5 +242,5 @@ class Service:
         obj = AtendimentoItens(id, id_atendimento, id_servico, quantidade, valor)
         AtendimentoItensDAO().atualizar(obj)
     @staticmethod
-    def atendimento_itens(id):
+    def atendimentoitens_excluir(id):
         AtendimentoItensDAO.excluir(id)
