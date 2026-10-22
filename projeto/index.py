@@ -18,6 +18,8 @@ from templetes.pagaratendimento import PagarAtendimento
 from templetes.registraratendimento import RegistrarAtendimento
 from templetes.manteratendimentoitensui import ManterAtendimentoItensUI
 from templetes.totalizartendimentosprofissionaisui import TotalAtendimentosUI
+from templetes.ListarHorariosConfirmadosHojeUI import ListarHorariosConfirmadosHojeUI
+from templetes.ListarAgendaProfissionalUI import ListarAgendaProfissionalUI
 from Service import Service
 import streamlit as st
 
@@ -28,7 +30,7 @@ class IndexUI:
 
     def menu_admin():
         Service.cliente_criar_admin()
-        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio", "Totalizar Atendimentos dos Profissionais", "Alterar Senha"])
+        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio", "Totalizar Atendimentos dos Profissionais","Horarios Confirmados para Hoje", "Listar Agenda do Profissional",  "Alterar Senha"])
         if op == "Clientes": ManterClienteUI.main()
         if op == "Serviços": ManterServicoUI.main()
         if op == 'Horario': ManterHorarioUI.main()
@@ -38,6 +40,8 @@ class IndexUI:
         if op == 'Atendimento Itens': ManterAtendimentoItensUI.main()
         if op == "Alterar Senha" : AlterarSenha.main()
         if op == "Totalizar Atendimentos dos Profissionais" : TotalAtendimentosUI.main()
+        if op == "Horarios Confirmados para Hoje" : ListarHorariosConfirmadosHojeUI.main()
+        if op == "Listar Agenda do Profissional" : ListarAgendaProfissionalUI.main()
     def menu_visitante():
         op = st.sidebar.selectbox("Menu", ["Entrar no Sistema",
         "Abrir Conta"])

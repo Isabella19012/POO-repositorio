@@ -110,7 +110,14 @@ class Service:
         for p in Service.profissional_listar():
             if p.get_email() == email and p.get_senha() == senha:
                 return {"id": p.get_id(), "nome": p.get_nome()}
-
+    # def horario_profissional_listar_agenda(profissional_id):
+    #     r = []
+    #     for h in Service.horario_listar():
+    #         if h.get_data() >= agora and h.get_confirmado() == False \
+    #         and h.get_id_cliente() == None and h.get_id_profissional() == id_profissional:
+    #             r.append(h)
+    #     r.sort (key = lambda h : h.get_data())
+        return r
 #HORARIO
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):
@@ -188,6 +195,21 @@ class Service:
         r = []
         for h in Service.horario_listar():
             if h.get_id_cliente() == id_cliente:
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
+    @staticmethod
+    def horarios_hoje_listar():
+        r = []
+        for h in Service.horario_listar():
+            if h.get_data().strftime("%d/%m/%Y") == datetime.now().strftime("%d/%m/%Y") and h.get_confirmado() == True :
+                r.append(h)
+        r.sort (key = lambda h : h.get_data())
+        return r
+    def horario_visualizar_profissional_agenda(id_profissional):
+        r = []
+        for h in Service.horario_listar():
+            if h.get_id_profissional() == id_profissional:
                 r.append(h)
         r.sort (key = lambda h : h.get_data())
         return r
