@@ -192,16 +192,23 @@ class Service:
         r.sort (key = lambda h : h.get_data())
         return r
     @staticmethod
-    def total_atendimento():
-        r = ProfissionalDAO.listar()
+    def total_atendimentos():
+        r = ProfissionalDAO().listar()
         r.sort(key = lambda obj : obj.get_nome().casefold())
-        dic= {}
+        dic = {}
         for obj in r:
             dic[obj.get_id()] = 0
-        horarios = horarioDAO.listar()
+        horarios = horarioDAO().listar()
         for h in horarios:
-            if h.get_confirmado(): dic[h.get_id_profissional()] = dic[h.get_id_profissional()]+1
-        return dic
+            if h.get_confirmado(): dic[h.get_id_profissional()] = dic[h.get_id_profissional()] + 1
+        list_prof = []
+        for key, value in dic.items():
+            prof = {}
+            prof["id"] = key
+            prof["nome"] = Service.profissional_listar_id(key).get_nome()
+            prof["quantidade"] = value
+            list_prof.append(prof)
+        return list_prof
 #ATENDIMENTO
     @staticmethod
     def atendimento_inserir(data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago):

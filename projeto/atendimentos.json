@@ -1,68 +1,13 @@
 [
   {
     "id": 1,
-    "data": "08/09/2026 00:00",
-    "queixa_principal": "dor de cabe\u00e7a",
-    "historico_saude": "Forte",
-    "avaliacao": "Doente",
-    "prescricao": "Descansar",
+    "data": "22/10/2026 00:00",
+    "queixa_principal": "Dor de garganta",
+    "historico_saude": "M\u00e1 forma\u00e7\u00e3o",
+    "avaliacao": "Paranoia severa",
+    "prescricao": "Rem\u00e9dio controlado",
     "id_horario": 1,
-    "total": 120.0,
-    "pago": false
-  },
-  {
-    "id": 2,
-    "data": "15/09/2026 00:00",
-    "queixa_principal": "Dor de pesco\u00e7o",
-    "historico_saude": "Decente",
-    "avaliacao": "Cliente sente dor de pesco\u00e7o e n\u00e3o consegue trabalhar",
-    "prescricao": "Relaxar ",
-    "id_horario": 2,
-    "total": 135.0,
-    "pago": false
-  },
-  {
-    "id": 3,
-    "data": "20/10/2026 00:00",
-    "queixa_principal": "queixa principal",
-    "historico_saude": "historico",
-    "avaliacao": "avalia\u00e7\u00e3o",
-    "prescricao": "prescri\u00e7\u00e3o",
-    "id_horario": 5,
-    "total": 331,
-    "pago": false
-  },
-  {
-    "id": 4,
-    "data": "20/10/2026 00:00",
-    "queixa_principal": "qp",
-    "historico_saude": "hs",
-    "avaliacao": "a",
-    "prescricao": "p",
-    "id_horario": 5,
-    "total": 1250,
-    "pago": false
-  },
-  {
-    "id": 5,
-    "data": "20/10/2026 00:00",
-    "queixa_principal": "queixa principal",
-    "historico_saude": "hist\u00f3rico de sa\u00fade",
-    "avaliacao": "avalia\u00e7\u00e3o",
-    "prescricao": "prescri\u00e7\u00e3o",
-    "id_horario": 5,
-    "total": 150,
-    "pago": false
-  },
-  {
-    "id": 6,
-    "data": "20/10/2026 00:00",
-    "queixa_principal": "Diarreia, dor de cabe\u00e7a, manchas nas cochas",
-    "historico_saude": "M\u00e1 sa\u00fade",
-    "avaliacao": "Cliente apresenta transtornos mentais, al\u00e9m dos sintomas ditos",
-    "prescricao": "Tomar dipirona",
-    "id_horario": 24,
-    "total": 90,
+    "total": 500,
     "pago": false
   }
 ]
