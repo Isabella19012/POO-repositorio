@@ -25,8 +25,11 @@ class ManterServicoUI:
         descricao = st.text_input('Informe a descrição')
         valor = st.text_input('Infome o valor')
         if st.button('Inserir'):
-            Service.servico_inserir( descricao, float(valor))
-            st.success('Serviço inserido com sucesso!')
+            try:
+                Service.servico_inserir( descricao, float(valor))
+                st.success('Serviço inserido com sucesso!')
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun() #roda o programa denovo - recarregar
 
@@ -38,9 +41,13 @@ class ManterServicoUI:
             descricao= st.text_input("Nova descrição", op.get_descricao())
             valor = st.text_input("Novo valor", op.get_valor())
             if st.button("Atualizar"):
-                id = op.get_id()
-                Service.servico_atualizar(int(id), descricao, float(valor))
-                st.success("Serviço atualizado com sucesso")
+                try:
+                    id = op.get_id()
+                    Service.servico_atualizar(int(id), descricao, float(valor))
+                    st.success("Serviço atualizado com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
+                time.sleep(2)
                 st.rerun()
     def excluir():
         servico = Service.servico_listar()
@@ -48,6 +55,11 @@ class ManterServicoUI:
         else:
             op = st.selectbox('Exclusão de serviços', servico)
             if st.button('Excluir'):
-                id = op.get_id()
-                Service.servico_excluir(id)
-                st.success('Serviço excluido com sucesso!')
+                try:
+                    id = op.get_id()
+                    Service.servico_excluir(id)
+                    st.success('Serviço excluido com sucesso!')
+                except ValueError as erro:
+                    st.error(erro)
+                time.sleep(2)
+                st.rerun()
