@@ -51,6 +51,10 @@ class Service:
 # CLIENTES
     @staticmethod
     def cliente_inserir(nome, email, senha, fone, id_convenio):
+        for obj in Service.cliente_listar():
+            for i in Service.profissional_listar():
+                if obj.get_email() == email or i.get_email() == email:
+                    raise ValueError("E-mail já ultilizado")
         c = Cliente(0, nome, email, senha, fone)
         c.set_id_convenio(id_convenio)
         ClienteDAO().inserir(c)
@@ -72,6 +76,9 @@ class Service:
         ClienteDAO().atualizar(c)
     @staticmethod
     def cliente_excluir(id):
+        for obj in Service.horario_listar():
+            if obj.get_id_cliente() == id:
+                raise ValueError("Cliente agendou um hórario: não é possível excluir")
         ClienteDAO().excluir(id)
     @staticmethod
     def cliente_criar_admin():
@@ -95,8 +102,12 @@ class Service:
 #PROFISSIONAL
     @staticmethod
     def profissional_inserir(nome, email, especializacao, senha):
-        obj=Profissional(0, nome, email, especializacao, senha)
-        ProfissionalDAO().inserir(obj)
+        for obj in Service.profissional_listar():
+            for i in Service.cliente_listar():
+                if obj.get_email() == email or i.get_email() == email:
+                    raise ValueError("E-mail já ultilizado")
+        p=Profissional(0, nome, email, especializacao, senha)
+        ProfissionalDAO().inserir(p)
     @staticmethod
     def profissional_listar():
         r=ProfissionalDAO().listar()

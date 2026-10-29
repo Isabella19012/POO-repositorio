@@ -50,8 +50,11 @@ class ManterHorarioUI:
             if cliente != None: id_cliente = cliente.get_id()
             if servico != None: id_servico = servico.get_id()
             if profissional != None: id_profissional = profissional.get_id()
-            Service.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
-            st.success("Horário inserido com sucesso")
+            try:
+                Service.horario_inserir(datetime.strptime(data, "%d/%m/%Y %H:%M"), confirmado, id_cliente, id_servico, id_profissional)
+                st.success("Horário inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()
 
@@ -93,18 +96,21 @@ class ManterHorarioUI:
                 index=next(
                     (i for i, p in enumerate(profissionais)
                     if p.get_id() == id_profissional),
-                    None
-                )
-            )
+                    None))
+
+            
             if st.button("Atualizar"):
-                Service.horario_atualizar(
-                    op.get_id(),
-                    datetime.strptime(data, "%d/%m/%Y %H:%M"),
-                    confirmado,
-                    cliente.get_id() if cliente else 0,
-                    servico.get_id() if servico else 0,
-                    profissional.get_id() if profissional else 0)
-                st.success("Horário atualizado com sucesso")
+                try:
+                    Service.horario_atualizar(
+                        op.get_id(),
+                        datetime.strptime(data, "%d/%m/%Y %H:%M"),
+                        confirmado,
+                        cliente.get_id() if cliente else 0,
+                        servico.get_id() if servico else 0,
+                        profissional.get_id() if profissional else 0)
+                    st.success("Horário atualizado com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
                 time.sleep(2)
                 st.rerun()
     def excluir():
@@ -113,7 +119,10 @@ class ManterHorarioUI:
         else:
             op = st.selectbox("Exclusão de Horários", horarios)
             if st.button("Excluir"):
-                Service.horario_excluir(op.get_id())
-                st.success("Horário excluído com sucesso")
+                try:
+                    Service.horario_excluir(op.get_id())
+                    st.success("Horário excluído com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
                 time.sleep(2)
                 st.rerun()
