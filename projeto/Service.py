@@ -51,9 +51,12 @@ class Service:
 # CLIENTES
     @staticmethod
     def cliente_inserir(nome, email, senha, fone, id_convenio):
+        if email == "admin": raise ValueError("E-mail reservado para o administrador.")
         for obj in Service.cliente_listar():
-            for i in Service.profissional_listar():
-                if obj.get_email() == email or i.get_email() == email:
+            if obj.get_id() != id and obj.get_email() == email:
+                raise ValueError("E-mail já ultilizado")
+        for i in Service.profissional_listar():
+                if i.get_id() != id and i.get_email() == email:
                     raise ValueError("E-mail já ultilizado")
         c = Cliente(0, nome, email, senha, fone)
         c.set_id_convenio(id_convenio)
@@ -71,6 +74,13 @@ class Service:
         return ClienteDAO().listar_nome(nome)
     @staticmethod
     def cliente_atualizar(id, nome, email, senha, fone, id_convenio):
+        if email == "admin": raise ValueError("E-mail reservado para o administrador.")
+        for obj in Service.cliente_listar():
+            if obj.get_id() != id and obj.get_email() == email:
+                raise ValueError("E-mail já ultilizado")
+        for i in Service.profissional_listar():
+                if i.get_id() != id and i.get_email() == email:
+                    raise ValueError("E-mail já ultilizado")
         c = Cliente(id, nome, email, senha, fone)
         c.set_id_convenio(id_convenio)
         ClienteDAO().atualizar(c)
@@ -102,9 +112,12 @@ class Service:
 #PROFISSIONAL
     @staticmethod
     def profissional_inserir(nome, email, especializacao, senha):
-        for obj in Service.profissional_listar():
-            for i in Service.cliente_listar():
-                if obj.get_email() == email or i.get_email() == email:
+        if email == 'admin': raise ValueError("E-mail reservado para o administrador.")
+        for obj in Service.cliente_listar():
+            if obj.get_email() == email:
+                raise ValueError("E-mail já ultilizado")
+        for i in Service.profissional_listar():
+                if i.get_email() == email:
                     raise ValueError("E-mail já ultilizado")
         p=Profissional(0, nome, email, especializacao, senha)
         ProfissionalDAO().inserir(p)
@@ -121,10 +134,20 @@ class Service:
         return ProfissionalDAO().listar_nome(nome)
     @staticmethod
     def profissional_atualizar(id, nome, email, especializacao, senha):
+        if email == 'admin': raise ValueError("E-mail reservado para o administrador.")
+        for obj in Service.cliente_listar():
+            if obj.get_email() == email:
+                raise ValueError("E-mail já ultilizado")
+        for i in Service.profissional_listar():
+                if i.get_email() == email:
+                    raise ValueError("E-mail já ultilizado")
         obj=Profissional(id, nome, email, especializacao, senha)
         ProfissionalDAO().atualizar(obj)
     @staticmethod
     def profissional_excluir(id):
+        for obj in Service.horario_listar():
+            if obj.get_id_profissional() == id:
+                raise ValueError("Profissional tem hórario: não é possível excluir")
         ProfissionalDAO().excluir(id)
     @staticmethod
     def profissionl_autenticar(email, senha):
@@ -143,6 +166,9 @@ class Service:
     @staticmethod
     def horario_inserir(data, confirmado, id_cliente, id_servico, id_profissional):
         if data < datetime.now(): raise ValueError('Data não pode estar no passado')
+        for h in Service.horario_listar():
+            if data == h.get_data() and id_profissional == h.get_id_profissional():
+                raise ValueError("O profissional não pode atender simultaneamente.")
         c= Horario(0, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
@@ -185,6 +211,9 @@ class Service:
         return horarioDAO().listar_id(id)
     @staticmethod
     def horario_atualizar(id, data, confirmado, id_cliente, id_servico, id_profissional):
+        for h in Service.horario_listar():
+            if id != h.get_id() and data == h.get_data() and id_profissional == h.get_id_profissional():
+                raise ValueError("O profissional não pode atender simultaneamente.")
         c= Horario(id, data)
         c.set_confirmado(confirmado)
         c.set_id_cliente(id_cliente)
@@ -193,6 +222,9 @@ class Service:
         horarioDAO().atualizar(c)
     @staticmethod
     def horario_excluir(id):
+        for h in Service.horario_listar():
+            if h.get_id() == id and h.get_confimado() == True:
+                raise ValueError("Não pode excluir esse horário: Horário já agendado.")
         horarioDAO().excluir(id)
     @staticmethod
     def horario_abrir_minha_agenda(data, horario_inicial, horario_final, intervalo, id_profissional):
