@@ -223,7 +223,7 @@ class Service:
     @staticmethod
     def horario_excluir(id):
         for h in Service.horario_listar():
-            if h.get_id() == id and h.get_confimado() == True:
+            if h.get_id() == id and h.get_confirmado() == True:
                 raise ValueError("Não pode excluir esse horário: Horário já agendado.")
         horarioDAO().excluir(id)
     @staticmethod
