@@ -1,20 +1,14 @@
 [
   {
     "id": 1,
-    "nome": "Ana",
-    "contato": "9090",
-    "fone": "8888-2222"
+    "nome": "Convenio santo antonio",
+    "contato": "Lilas",
+    "fone": "1"
   },
   {
     "id": 2,
-    "nome": "Manaus",
-    "contato": "midm@gmail.com",
-    "fone": "9090-1665"
-  },
-  {
-    "id": 3,
-    "nome": "Marte",
-    "contato": "@martin",
-    "fone": "92282"
+    "nome": "Cliente nao",
+    "contato": "@Kienteno",
+    "fone": "432"
   }
 ]

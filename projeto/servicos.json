@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "descricao": "Conserto de cadeiras",
+    "valor": 145.0
+  },
+  {
+    "id": 2,
+    "descricao": "Substituto",
+    "valor": 900.0
+  }
+]

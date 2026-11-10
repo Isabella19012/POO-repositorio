@@ -10,7 +10,10 @@ class AbrirContaUI:
         fone = st.text_input("Informe o fone")
         
         if st.button("Inserir"):
-            Service.cliente_inserir(nome, email, senha, fone,0)
-            st.success("Conta criada com sucesso")
+            try:
+                Service.cliente_inserir(nome, email, senha, fone,0)
+                st.success("Conta criada com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()

@@ -14,7 +14,12 @@ from templetes.visualizarmeusservicos import VisualizarServicos
 from templetes.visualizarminhaagenda import VisualizarAgenda
 from templetes.confirmarservico import ConfirmarServico
 from templetes.alterarsenha import AlterarSenha
-
+from templetes.pagaratendimento import PagarAtendimento
+from templetes.registraratendimento import RegistrarAtendimento
+from templetes.manteratendimentoitensui import ManterAtendimentoItensUI
+from templetes.totalizartendimentosprofissionaisui import TotalAtendimentosUI
+from templetes.ListarHorariosConfirmadosHojeUI import ListarHorariosConfirmadosHojeUI
+from templetes.ListarAgendaProfissionalUI import ListarAgendaProfissionalUI
 from Service import Service
 import streamlit as st
 
@@ -25,14 +30,18 @@ class IndexUI:
 
     def menu_admin():
         Service.cliente_criar_admin()
-        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio", "Alterar Senha"])
+        op = st.sidebar.selectbox("Menu", ["Clientes", "Serviços", "Horario", "Profissional", "Atendimento", "Convenio", "Totalizar Atendimentos dos Profissionais","Horarios Confirmados para Hoje", "Listar Agenda do Profissional",  "Alterar Senha"])
         if op == "Clientes": ManterClienteUI.main()
         if op == "Serviços": ManterServicoUI.main()
         if op == 'Horario': ManterHorarioUI.main()
         if op == 'Profissional': ManterProfissionalUI.main()
         if op == 'Atendimento': ManterAtendimentoUI.main()
         if op == 'Convenio': ManterConvenioUI.main()
+        if op == 'Atendimento Itens': ManterAtendimentoItensUI.main()
         if op == "Alterar Senha" : AlterarSenha.main()
+        if op == "Totalizar Atendimentos dos Profissionais" : TotalAtendimentosUI.main()
+        if op == "Horarios Confirmados para Hoje" : ListarHorariosConfirmadosHojeUI.main()
+        if op == "Listar Agenda do Profissional" : ListarAgendaProfissionalUI.main()
     def menu_visitante():
         op = st.sidebar.selectbox("Menu", ["Entrar no Sistema",
         "Abrir Conta"])
@@ -40,17 +49,19 @@ class IndexUI:
         if op == "Abrir Conta": AbrirContaUI.main()
 
     def menu_cliente():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Visualizar Serviços"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Agendar Serviço", "Visualizar Serviços", "Pagar Atendimento"])
         if op == "Meus Dados": PerfilClienteUI.main()
         if op == "Agendar Serviço": AgendarServicoUI.main()
         if op == "Visualizar Serviços": VisualizarServicos.main()
+        if op == "Pagar Atendimento": PagarAtendimento.main()
 
     def menu_profissional():
-        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Minha Agenda", "Visualizar Minha Agenda", "Confirmar Serviço"])
+        op = st.sidebar.selectbox("Menu", ["Meus Dados", "Abrir Minha Agenda", "Visualizar Minha Agenda", "Confirmar Serviço", "Registrar Atendimento"])
         if op == "Meus Dados": PerfilProfissionalUI.main()
         if op == "Abrir Minha Agenda": AbrirMinhaAgenda.main()
         if op == "Visualizar Minha Agenda": VisualizarAgenda.main()
         if op == "Confirmar Serviço": ConfirmarServico.main()
+        if op == "Registrar Atendimento": RegistrarAtendimento.main()
     def sair_do_sistema():
             if st.sidebar.button("Sair"):
                 del st.session_state["usuario_id"]

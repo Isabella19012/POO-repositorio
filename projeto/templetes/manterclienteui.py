@@ -37,21 +37,24 @@ class ManterClienteUI:
                 id_convenio = id_convenio.get_id()
             else:
                 id_convenio = 0
-            Service.cliente_inserir(nome, email, senha, fone, id_convenio)
-            st.success("Cliente inserido com sucesso")
+            try:
+                Service.cliente_inserir(nome, email, senha, fone, id_convenio)
+                st.success("Cliente inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()
     def atualizar():
         clientes = Service.cliente_listar()
+        convenios = Service.convenio_listar()
         if len(clientes) == 0: st.write("Nenhum cliente cadastrado")
         else:
-            convenios = Service.convenio_listar()
             op = st.selectbox("Atualização de Clientes", clientes)
             nome = st.text_input("Novo nome", op.get_nome())
             email = st.text_input("Novo e-mail", op.get_email())
             senha = st.text_input("Nova senha", op.get_senha())
             fone = st.text_input("Novo fone", op.get_fone())
-            id_convenio = st.selectbox('Novo id do convenio', op.get_id_convenio())
+            id_convenio = st.selectbox('Novo id do convenio', convenios)
             convenio = st.selectbox(
                 "Informe o novo convenio",
                 convenios,
@@ -60,8 +63,11 @@ class ManterClienteUI:
                     if p.get_id() == id_convenio),None))
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.cliente_atualizar(id, nome, email, fone, senha, convenio.get_id() if convenio else 0)
-                st.success("Cliente atualizado com sucesso")
+                try:
+                    Service.cliente_atualizar(id, nome, email, fone, senha, convenio.get_id() if convenio else 0)
+                    st.success("Cliente atualizado com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
                 time.sleep(2)
                 st.rerun()
     def excluir():
@@ -71,7 +77,10 @@ class ManterClienteUI:
             op = st.selectbox("Exclusão de Clientes", clientes)
             if st.button("Excluir"):
                 id = op.get_id()
-                Service.cliente_excluir(id)
-                st.success("Cliente excluído com sucesso")
+                try:
+                    Service.cliente_excluir(id)
+                    st.success("Cliente excluído com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
                 time.sleep(2)
                 st.rerun()

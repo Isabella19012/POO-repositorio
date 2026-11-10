@@ -28,8 +28,11 @@ class ManterProfissionalUI:
         senha = st.text_input("Informe a senha: ")
         especialidade = st.text_input("Informe a especialidade")
         if st.button("Inserir"):
-            Service.profissional_inserir(nome, email, especialidade, senha)
-            st.success("Profissional inserido com sucesso")
+            try:
+                Service.profissional_inserir(nome, email, especialidade, senha)
+                st.success("Profissional inserido com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
             st.rerun()
     def atualizar():
@@ -43,8 +46,11 @@ class ManterProfissionalUI:
             especialidade = st.text_input("Nova especialidade", op.get_especializacao())
             if st.button("Atualizar"):
                 id = op.get_id()
-                Service.profissional_atualizar(int(id), nome, email, especialidade, senha)
-                st.success("Profissional atualizado com sucesso")
+                try:
+                    Service.profissional_atualizar(int(id), nome, email, especialidade, senha)
+                    st.success("Profissional atualizado com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
                 time.sleep(2)
                 st.rerun()
     def excluir():
@@ -54,7 +60,10 @@ class ManterProfissionalUI:
             op = st.selectbox("Exclusão de profissional", profissionais)
             if st.button("Excluir"):
                 id = op.get_id()
-                Service.profissional_excluir(id)
-                st.success("Profissional excluído com sucesso")
+                try:
+                    Service.profissional_excluir(id)
+                    st.success("Profissional excluído com sucesso")
+                except ValueError as erro:
+                    st.error(erro)
                 time.sleep(2)
                 st.rerun()

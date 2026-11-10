@@ -11,6 +11,9 @@ class PerfilProfissionalUI:
         senha = st.text_input("Informe a nova senha", op.get_senha(),type="password")
         if st.button("Atualizar"):
             id = op.get_id()
-            Service.profissional_atualizar(id, nome, email, especializacao, senha)
+            try:
+                Service.profissional_atualizar(id, nome, email, especializacao, senha)
+                st.success("Profissional atualizado com sucesso")
+            except ValueError as erro:
+                st.error(erro)
             time.sleep(2)
-            st.success("Profissional atualizado com sucesso")
