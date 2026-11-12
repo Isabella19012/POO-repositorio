@@ -1,10 +1,10 @@
-from models.Atendimento import Atendimento
-from models.dao import DAO
-
+from models.AtendimentoItens import AtendimentoItens
 import json
-class AtendimentoDAO(DAO):
+from dao_json.dao import DAO
+
+class AtendimentoItensDAO(DAO):
     def __init__(self):
-        super().__init__('atendimentos.json')
+        super().__init__('atendimentoItens.json')
     def _abrir(self):
         try:
             arquivo = open(self._arquivo, mode='r')
@@ -12,11 +12,11 @@ class AtendimentoDAO(DAO):
             arquivo.close()
             self._objetos = []
             for dic in list_dic:
-                obj=Atendimento.from_json(dic)
-                self._objetos.append(obj)
+                obj=AtendimentoItens.from_json(dic)
+                self.__objetos.append(obj)
         except FileNotFoundError:
             pass
     def _salvar(self):
         arquivo = open(self._arquivo, mode='w')
-        json.dump(self._objetos, arquivo, default=Atendimento.to_json, indent=2)
+        json.dump(self._objetos, arquivo, default=AtendimentoItens.to_json, indent=2)
         arquivo.close()

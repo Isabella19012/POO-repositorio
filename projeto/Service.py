@@ -1,18 +1,18 @@
 
 from models.Servico import Servico
-from models.ServicoDAO import ServicoDAO
+from dao_json.ServicoDAO import ServicoDAO
 from models.cliente import Cliente
-from models.clientedao import ClienteDAO
+from dao_json.clientedao import ClienteDAO
 from models.Profissional import Profissional
-from models.ProfissionalDAO import ProfissionalDAO
+from dao_json.ProfissionalDAO import ProfissionalDAO
 from models.horario import Horario
-from models.horariodao import horarioDAO
+from dao_json.horariodao import horarioDAO
 from models.Atendimento import Atendimento
-from models.AtendimentoDAO import AtendimentoDAO
+from dao_json.AtendimentoDAO import AtendimentoDAO
 from models.Convenio import Convenio
-from models.ConvenioDAO import ConvenioDAO
+from dao_json.ConvenioDAO import ConvenioDAO
 from models.AtendimentoItens import AtendimentoItens
-from models.AtendimentoItensDAO import AtendimentoItensDAO
+from dao_json.AtendimentoItensDAO import AtendimentoItensDAO
 from datetime import datetime, timedelta
 class Service:
 # SERVIÇOS

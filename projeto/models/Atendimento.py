@@ -9,7 +9,7 @@ class Atendimento:
         self.set_prescricao(prescricao)
         self.set_id_horario(id_horario)
         self.set_total(total)
-        self.set_pago(pago)
+        self.set_pago(pago) 
         
     def __str__(self):
         return f'{self.__id} - {self.__data} - {self.__queixa_principal} - {self.__historico_saude} - {self.__avaliacao} - {self.__prescricao} - {self.__id_horario}'

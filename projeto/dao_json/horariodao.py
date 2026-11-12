@@ -1,10 +1,11 @@
-from models.Convenio import Convenio
-from models.dao import DAO
-
+from models.horario import Horario
 import json
-class ConvenioDAO(DAO):
+from dao_json.dao import DAO
+
+
+class horarioDAO(DAO):
     def __init__(self):
-        super().__init__('convenios.json')
+        super().__init__('horario.json')
     def _abrir(self):
         try:
             arquivo = open(self._arquivo, mode='r')
@@ -12,11 +13,11 @@ class ConvenioDAO(DAO):
             arquivo.close()
             self._objetos = []
             for dic in list_dic:
-                obj=Convenio.from_json(dic)
+                obj=Horario.from_json(dic)
                 self._objetos.append(obj)
         except FileNotFoundError:
             pass
     def _salvar(self):
-        arquivo = open(self._arquivo, mode='w')
-        json.dump(self._objetos, arquivo, default=Convenio.to_json, indent=2)
+        arquivo = open(self.__arquivo, mode='w')
+        json.dump(self._objetos, arquivo, default=Horario.to_json, indent=2)
         arquivo.close()
