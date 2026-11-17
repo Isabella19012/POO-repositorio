@@ -1,16 +1,16 @@
 
 from models.Servico import Servico
-from dao_json.ServicoDAO import ServicoDAO
+from dao_sql.servicodao import ServicoDAO
 from models.cliente import Cliente
-from dao_json.clientedao import ClienteDAO
+from dao_sql.clientedao import ClienteDAO
 from models.Profissional import Profissional
-from dao_json.ProfissionalDAO import ProfissionalDAO
+from dao_sql.profissionaldao import ProfissionalDAO
 from models.horario import Horario
-from dao_json.horariodao import horarioDAO
+from dao_sql.horariodao import horarioDAO
 from models.Atendimento import Atendimento
-from dao_json.AtendimentoDAO import AtendimentoDAO
+from dao_sql.atendimentodao import AtendimentoDAO
 from models.Convenio import Convenio
-from dao_json.ConvenioDAO import ConvenioDAO
+from dao_sql.conveniodao import ConvenioDAO
 from models.AtendimentoItens import AtendimentoItens
 from dao_json.AtendimentoItensDAO import AtendimentoItensDAO
 from datetime import datetime, timedelta
@@ -50,8 +50,8 @@ class Service:
         ServicoDAO().excluir(id)
 # CLIENTES
     @staticmethod
-    def cliente_inserir(nome, email, senha, fone, id_convenio):
-        if email == "admin": raise ValueError("E-mail reservado para o administrador.")
+    def cliente_inserir(nome, email, senha, fone, id_convenio, adm):
+        if adm == False and email == "admin": raise ValueError("E-mail reservado para o administrador.")
         for obj in Service.cliente_listar():
             if obj.get_id() != id and obj.get_email() == email:
                 raise ValueError("E-mail já ultilizado")
@@ -74,7 +74,7 @@ class Service:
         return ClienteDAO().listar_nome(nome)
     @staticmethod
     def cliente_atualizar(id, nome, email, senha, fone, id_convenio):
-        if email == "admin": raise ValueError("E-mail reservado para o administrador.")
+        if adm==True and email == "admin": raise ValueError("E-mail reservado para o administrador.")
         for obj in Service.cliente_listar():
             if obj.get_id() != id and obj.get_email() == email:
                 raise ValueError("E-mail já ultilizado")
@@ -94,7 +94,7 @@ class Service:
     def cliente_criar_admin():
         for c in Service.cliente_listar():
             if c.get_email() == "admin": return 
-        Service.cliente_inserir("admin", "admin", "1234", "fone", 0)
+        Service.cliente_inserir("admin", "admin", "1234", "fone", 0, adm=True)
     @staticmethod
     def cliente_autenticar(email, senha):
         for c in Service.cliente_listar():
@@ -112,7 +112,7 @@ class Service:
 #PROFISSIONAL
     @staticmethod
     def profissional_inserir(nome, email, especializacao, senha):
-        if email == 'admin': raise ValueError("E-mail reservado para o administrador.")
+        if email == "admin": raise ValueError("E-mail reservado para o administrador.")
         for obj in Service.cliente_listar():
             if obj.get_email() == email:
                 raise ValueError("E-mail já ultilizado")

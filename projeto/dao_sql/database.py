@@ -23,12 +23,15 @@ class Database:
     def criar_tabelas(cls):
         # --------------------- Tabela Cliente ---------------------
         cls.execute("""
-            CREATE TABLE IF NOT EXISTS cliente (
+            CREATE TABLE IF NOT EXISTS Cliente (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
                 email TEXT NOT NULL,
+                senha TEXT NOT NULL,
                 fone TEXT,
-                senha TEXT NOT NULL
+                id_convenio INTEGER,
+
+                FOREIGN KEY (id_convenio) REFERENCES Convenio(id) ON DELETE CASCADE
             );
         """)
 
@@ -38,7 +41,7 @@ class Database:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
                 email TEXT NOT NULL,
-                especialidade TEXT NULL,
+                especializacao TEXT NULL,
                 senha TEXT NOT NULL
             );
         """)
@@ -54,7 +57,7 @@ class Database:
 
         # --------------------- Tabela Horario ---------------------
         cls.execute("""
-            CREATE TABLE IF NOT EXISTS horario (
+            CREATE TABLE IF NOT EXISTS Horario (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 data TEXT NOT NULL,
                 confirmado INTEGER DEFAULT 0,
@@ -62,7 +65,7 @@ class Database:
                 id_servico INTEGER,
                 id_profissional INTEGER,
 
-                FOREIGN KEY (id_cliente) REFERENCES cliente(id) ON DELETE CASCADE,
+                FOREIGN KEY (id_cliente) REFERENCES Cliente(id) ON DELETE CASCADE,
                 FOREIGN KEY (id_servico) REFERENCES Servico(id) ON DELETE CASCADE,
                 FOREIGN KEY (id_profissional) REFERENCES Profissional(id) ON DELETE CASCADE
             );
@@ -78,11 +81,21 @@ class Database:
                 avaliacao TEXT NULL,
                 prescricao TEXT NULL,
                 id_horario INTEGER,
+                pago INTEGER DEFAULT 0,
+                total REAL NOT NULL,
 
-                FOREIGN KEY (id_horario) REFERENCES horario(id) ON DELETE CASCADE
+                FOREIGN KEY (id_horario) REFERENCES Horario(id) ON DELETE CASCADE
             );
         """)
-
+            # --------------------- Tabela Convenio ---------------------
+        cls.execute("""
+            CREATE TABLE IF NOT EXISTS Convenio (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL,
+                contato TEXT NOT NULL,
+                fone TEXT
+            );
+        """)
 if __name__ == "__main__":
     Database.abrir()
     Database.criar_tabelas()

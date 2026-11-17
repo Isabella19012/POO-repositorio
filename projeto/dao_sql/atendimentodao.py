@@ -1,13 +1,13 @@
 from dao_sql.dao import DAO
-from models.cliente import Cliente
+from models.Atendimento import Atendimento
 
-class ClienteDAO(DAO):
+class AtendimentoDAO(DAO):
     @classmethod
     def inserir(cls, obj):
         cls.abrir()
         sql = """
-            INSERT INTO cliente ((data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago))
-            VALUES (?, ?, ?, ?)
+            INSERT INTO Atendimento ((data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago))
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """
         cls.execute(sql, ((obj.get_data(), obj.get_queixa_principal(), obj.get_historico_saude(), obj.get_avaliacao(), obj.get_prescricao(), obj.get_id_horario(), obj.get_total(), obj.get_pago())))
         cls.fechar()
@@ -16,20 +16,20 @@ class ClienteDAO(DAO):
     @classmethod
     def listar(cls):
         cls.abrir()
-        sql = "SELECT * FROM cliente"
+        sql = "SELECT * FROM Atendimento"
         cursor = cls.execute(sql)
         rows = cursor.fetchall()
-        objs = [Cliente(id, nome, email, fone, senha) for (id, nome, email, fone, senha) in rows]
+        objs = [Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago) for (id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago) in rows]
         cls.fechar()
         return objs
 
     @classmethod
     def listar_id(cls, id):
         cls.abrir()
-        sql = "SELECT * FROM cliente WHERE id = ?"
+        sql = "SELECT * FROM Atendimento WHERE id = ?"
         cursor = cls.execute(sql, (id,))
         row = cursor.fetchone()
-        obj = Cliente(*row) if row else None
+        obj = Atendimento(*row) if row else None
         cls.fechar()
         return obj
 
@@ -37,15 +37,15 @@ class ClienteDAO(DAO):
     def atualizar(cls, obj):
         cls.abrir()
         sql = """
-            UPDATE cliente SET nome=?, email=?, fone=?, senha=?
+            UPDATE Atendimento SET data=?, queixa_principal=?, historico_saude=?, avaliacao=?, prescricao=?, id_horario=?, total=?, pago=?
             WHERE id=?
         """
-        cls.execute(sql, (obj.get_nome(), obj.get_email(), obj.get_fone(), obj.get_senha(), obj.get_id()))
+        cls.execute(sql, (obj.get_data(), obj.get_queixa_principal(), obj.get_historico_saude(), obj.get_avaliacao(), obj.get_prescricao(), obj.get_id_horario(), obj.get_total(), obj.get_pago(), obj.get_id()))
         cls.fechar()
-
+        
     @classmethod
     def excluir(cls, obj):
         cls.abrir()
-        sql = "DELETE FROM cliente WHERE id=?"
+        sql = "DELETE FROM Atendimento WHERE id=?"
         cls.execute(sql, (obj,))
         cls.fechar()
