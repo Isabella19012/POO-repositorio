@@ -21,7 +21,7 @@ class Cliente:
         if fone == "": raise ValueError("Fone deve ser informado")
         self.__fone = fone
     def set_id_convenio(self, id):
-        if id < 0: raise ValueError("Id deve ser positivo")
+        # if id < 0: raise ValueError("Id deve ser positivo")
         self.__id_convenio = id
     def set_senha(self, s):
         if s == "": raise ValueError("Senha deve ser informado")

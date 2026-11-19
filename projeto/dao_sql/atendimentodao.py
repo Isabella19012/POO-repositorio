@@ -1,12 +1,13 @@
 from dao_sql.dao import DAO
 from models.Atendimento import Atendimento
+from datetime import datetime
 
 class AtendimentoDAO(DAO):
     @classmethod
     def inserir(cls, obj):
         cls.abrir()
         sql = """
-            INSERT INTO Atendimento ((data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago))
+            INSERT INTO Atendimento (data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """
         cls.execute(sql, ((obj.get_data(), obj.get_queixa_principal(), obj.get_historico_saude(), obj.get_avaliacao(), obj.get_prescricao(), obj.get_id_horario(), obj.get_total(), obj.get_pago())))
@@ -19,7 +20,20 @@ class AtendimentoDAO(DAO):
         sql = "SELECT * FROM Atendimento"
         cursor = cls.execute(sql)
         rows = cursor.fetchall()
-        objs = [Atendimento(id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago) for (id, data, queixa_principal, historico_saude, avaliacao, prescricao, id_horario, total, pago) in rows]
+        objs = [
+            Atendimento(
+                id,
+                datetime.strptime(data, '%Y-%m-%d %H:%M:%S'),
+                queixa_principal,
+                historico_saude,
+                avaliacao,
+                prescricao,
+                id_horario,
+                total,
+                pago
+            )
+            for (id, data, queixa_principal, historico_saude,
+                avaliacao, prescricao, id_horario, total, pago) in rows]
         cls.fechar()
         return objs
 

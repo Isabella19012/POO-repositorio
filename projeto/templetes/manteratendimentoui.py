@@ -50,7 +50,7 @@ class ManterAtendimentoUI:
         else:
             op = st.selectbox("Atualização de Atendimentos", atendimentos)
 
-            data = st.text_input("Informe a data",op.get_data().strftime("%d/%m/%Y"))
+            data = st.text_input("Informe a data",op.get_data().strftime("%d/%m/%Y"), key='data_atualizar')
             queixa_principal = st.text_input("Informe a queixa principal", op.get_queixa_principal())
             historico_saude = st.text_input("Informe o histórico de saúde",op.get_historico_saude())
             avaliacao = st.text_input("Informe a avaliação",op.get_avaliacao())

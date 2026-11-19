@@ -1,5 +1,6 @@
 from dao_sql.dao import DAO
 from models.horario import Horario
+from datetime import datetime
 
 class horarioDAO(DAO):
     @classmethod
@@ -7,9 +8,9 @@ class horarioDAO(DAO):
         cls.abrir()
         sql = """
             INSERT INTO Horario (data, confirmado, id_cliente ,id_servico, id_profissional)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?)
         """
-        cls.execute(sql, (obj.get_data(), obj.get_confirmado(), obj.get_id_cliente(), obj.get_id_servico, obj.get_id_profissional()))
+        cls.execute(sql, (obj.get_data(), obj.get_confirmado(), obj.get_id_cliente(), obj.get_id_servico(), obj.get_id_profissional()))
         cls.fechar()
 
 
@@ -19,7 +20,16 @@ class horarioDAO(DAO):
         sql = "SELECT * FROM Horario"
         cursor = cls.execute(sql)
         rows = cursor.fetchall()
-        objs = [Horario(id, data, confirmado, id_cliente ,id_servico) for (id, data, confirmado, id_cliente ,id_servico) in rows]
+
+        objs = []
+        for (id, data, confirmado, id_cliente, id_servico, id_profissional) in rows:
+            h = Horario(id, datetime.strptime(data, '%Y-%m-%d %H:%M:%S'))
+            h.set_confirmado(confirmado)
+            h.set_id_cliente(id_cliente)
+            h.set_id_servico(id_servico)
+            h.set_id_profissional(id_profissional)
+            objs.append(h)
+
         cls.fechar()
         return objs
 

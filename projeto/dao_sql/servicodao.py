@@ -7,7 +7,7 @@ class ServicoDAO(DAO):
         cls.abrir()
         sql = """
             INSERT INTO Servico (descricao, valor)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?)
         """
         cls.execute(sql, (obj.get_descricao(), obj.get_valor()))
         cls.fechar()
@@ -16,7 +16,7 @@ class ServicoDAO(DAO):
     @classmethod
     def listar(cls):
         cls.abrir()
-        sql = "SELECT * FROM Profissional"
+        sql = "SELECT * FROM Servico"
         cursor = cls.execute(sql)
         rows = cursor.fetchall()
         objs = [Servico(id, descricao, valor) for (id, descricao, valor) in rows]

@@ -50,10 +50,10 @@ class Service:
         ServicoDAO().excluir(id)
 # CLIENTES
     @staticmethod
-    def cliente_inserir(nome, email, senha, fone, id_convenio, adm):
+    def cliente_inserir(nome, email, senha, fone, id_convenio, adm= False):
         if adm == False and email == "admin": raise ValueError("E-mail reservado para o administrador.")
         for obj in Service.cliente_listar():
-            if obj.get_id() != id and obj.get_email() == email:
+            if obj.get_email() == email:
                 raise ValueError("E-mail já ultilizado")
         for i in Service.profissional_listar():
                 if i.get_id() != id and i.get_email() == email:
@@ -74,7 +74,7 @@ class Service:
         return ClienteDAO().listar_nome(nome)
     @staticmethod
     def cliente_atualizar(id, nome, email, senha, fone, id_convenio):
-        if adm==True and email == "admin": raise ValueError("E-mail reservado para o administrador.")
+        if email == "admin": raise ValueError("E-mail reservado para o administrador.")
         for obj in Service.cliente_listar():
             if obj.get_id() != id and obj.get_email() == email:
                 raise ValueError("E-mail já ultilizado")
@@ -94,7 +94,7 @@ class Service:
     def cliente_criar_admin():
         for c in Service.cliente_listar():
             if c.get_email() == "admin": return 
-        Service.cliente_inserir("admin", "admin", "1234", "fone", 0, adm=True)
+        Service.cliente_inserir("admin", "admin", "1234", "fone", None, adm=True)
     @staticmethod
     def cliente_autenticar(email, senha):
         for c in Service.cliente_listar():

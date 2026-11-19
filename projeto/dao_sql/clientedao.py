@@ -19,7 +19,12 @@ class ClienteDAO(DAO):
         sql = "SELECT * FROM Cliente"
         cursor = cls.execute(sql)
         rows = cursor.fetchall()
-        objs = [Cliente(id, nome, email, senha, fone, id_convenio) for (id, nome, email, senha, fone, id_convenio) in rows]
+        objs = []
+
+        for (id, nome, email, senha, fone, id_convenio) in rows:
+            c = Cliente(id, nome, email, senha, fone)
+            c.set_id_convenio(id_convenio)
+            objs.append(c)
         cls.fechar()
         return objs
 
@@ -29,7 +34,12 @@ class ClienteDAO(DAO):
         sql = "SELECT * FROM Cliente WHERE id = ?"
         cursor = cls.execute(sql, (id,))
         row = cursor.fetchone()
-        obj = Cliente(*row) if row else None
+        if row:
+            obj = Cliente(row[0], row[1], row[2], row[3], row[4])
+            obj.set_id_convenio(row[5])
+        else:
+            obj = None
+
         cls.fechar()
         return obj
 

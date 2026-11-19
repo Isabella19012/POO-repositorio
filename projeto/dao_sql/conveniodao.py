@@ -7,7 +7,7 @@ class ConvenioDAO(DAO):
         cls.abrir()
         sql = """
             INSERT INTO Convenio (nome, contato, fone)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?)
         """
         cls.execute(sql, (obj.get_nome(), obj.get_contato(), obj.get_fone()))
         cls.fechar()
